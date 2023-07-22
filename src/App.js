@@ -3,7 +3,7 @@ import './Script/Main.ts';
 function App() {
   return (
 		<article>
-			<p>pubgyu</p>
+			<p>pubgyu work</p>
 		</article>
   );
 }
