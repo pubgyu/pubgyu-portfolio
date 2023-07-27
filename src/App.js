@@ -1,11 +1,7 @@
-import './Script/Main.ts';
+import Main from './Pages/Main';
 
-function App() {
-  return (
-		<article>
-			<p>pubgyu</p>
-		</article>
-  );
+export default function App() {
+	return (
+		<Main />
+	);
 }
-
-export default App;

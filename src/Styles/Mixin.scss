@@ -1,5 +1,13 @@
-@mixin tab-text{
-    color: $Color1;
-    font-size: 20px;
-    background-color: gray;
-  }
+// get vw
+@function getVw($fontSize){
+    $vwContext:$PcViewport * 0.01 * 1px;
+    @return $fontSize / $vwContext * 1vw;
+}
+// section title
+@mixin sectionText{
+	display:block;
+	color: $FontColor2;
+	font-size: getVw(80px);
+	white-space: pre-line;
+	font-weight:bold;
+}
