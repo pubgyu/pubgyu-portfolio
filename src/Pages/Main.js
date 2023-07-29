@@ -28,9 +28,20 @@ function Main() {
         <div id="threeDom" ref={threeDomRef}>
             <h1 className="hideTxt">PORTFOLIO by pubgyu</h1>
 
+            <section id="opening" className="contents visible">
+                <article className="con">
+                    <h2 className="menuTitle">Hi !</h2>
+                    <strong>Hello !</strong>
+                    <span className="scrollInfo">
+                        Scroll Down !
+                        <i className="arrow">arrow</i>
+                    </span>
+                </article>
+            </section>
+
             <section id="hello" className="contents">
                 <article className="con">
-                    <h2 className="hideTxt">hello</h2>
+                    <h2 className="menuTitle">hello</h2>
 
                     <div className="sectionTitle title1">
                         <strong>
@@ -52,17 +63,42 @@ function Main() {
             <section id="introduce" className="contents">
                 <article className="con">
                     <h2 className="menuTitle">introduce</h2>
-                    <strong className="sectionTitle">
-                        안녕하세요. 웹 퍼블리셔로 일하고 있는 박규태 입니다.{"\n"}
-                        다양한 기술을 이용하여 모션을 만드는 것을 좋아합니다.{"\n"}
-                        또한 다양한 것을 배우고 적용하고 싶습니다.
-                    </strong>
+                    
+                    <div className="aboutWrap">
+                        <span className="imgWrap">
+                            <img src="/images/pubgyu.jpg" alt="pubgyu" />
+                        </span>
+                        <strong>About{"\n"}PubGyu</strong>
+                        <p className="txt">
+                            {/* 안녕하세요. 웹 퍼블리셔로 일하고 있는 박규태입니다.{"\n"}
+                            다양한 기술을 이용하여 모션을 만드는 것을 좋아합니다.{"\n"}
+                            (WEBGL, d3.js, p5.js 등){"\n"}
+                            프론트 관련해서 관심 있게 공부하고 배우고 있습니다.{"\n"}
+                            (react, next.js 등){"\n"}
+                            또한 다양한 것을 배우고 적용하고 싶습니다.{"\n"}
+                            {"\n"}
+                            프로젝트의 목적을 우선적으로 고려하지만{"\n"}
+                            다양한 사람들의 협업과 커뮤니케이션 그리고{"\n"}
+                            더욱 나은 코드를 위해 계속적으로 나아가고 싶습니다. */}
+
+                            논리적 사고로 구조를 세우고{"\n"}
+                            사용자의 시선을 매료할 모션을{"\n"}
+                            브라우저에 표현하는 박규태(Pubgyu)입니다.{"\n"}
+                            {"\n"}
+                            다양한 모션을 하는 것을 좋아하지만{"\n"}
+                            프론트 혹은 다양한 기술에 대해{"\n"}
+                            관심도 많고 공부하고 있습니다.{"\n"}
+                            아직 우물 안 개구리라고 생각을 하며{"\n"}
+                            이 생각을 깨뜨리기 위해 계속 배워나가는 중입니다.{"\n"}
+                        </p>
+                    </div>
                 </article>
             </section>
 
             <section id="shorts" className="contents">
                 <article className="con center">
                     <h2 className="menuTitle">work</h2>
+
                     <ShortsVideo />
                 </article>
             </section>
