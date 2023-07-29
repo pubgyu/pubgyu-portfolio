@@ -9,8 +9,8 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 let pixelSize = {s:15};
 let ModelInfo = {
-    p : {x:-0.3,y:0,z:-0.3},
-    r : {x:0,y:-0.8,z:0}
+    p : {x:0,y:0,z:-0.3},
+    r : {x:0,y:0,z:0}
 }
 
 let camera, scene, renderer, helloCircle, model, box, composer, modelPixel;
@@ -39,7 +39,7 @@ const ThreeInit = (_target) => {
 	
     // hello circle
     helloCircle = new THREE.Mesh( 
-        new THREE.CircleGeometry( 2, 60 ), 
+        new THREE.CircleGeometry( 2, 60), 
         new THREE.MeshBasicMaterial({ color: 0x000000 }) 
     );
     helloCircle.position.set(0,0,-1);

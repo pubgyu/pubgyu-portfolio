@@ -31,7 +31,8 @@ function Main() {
             <section id="opening" className="contents visible">
                 <article className="con">
                     <h2 className="menuTitle">Hi !</h2>
-                    <strong>Hello !</strong>
+                    <strong className="hideTxt">Hello!</strong>
+                    <strong className="openTxt" aria-hidden="true"></strong>
                     <span className="scrollInfo">
                         Scroll Down !
                         <i className="arrow">arrow</i>
@@ -83,7 +84,7 @@ function Main() {
 
                             논리적 사고로 구조를 세우고{"\n"}
                             사용자의 시선을 매료할 모션을{"\n"}
-                            브라우저에 표현하는 박규태(Pubgyu)입니다.{"\n"}
+                            브라우저에 표현하는 박규태입니다.{"\n"}
                             {"\n"}
                             다양한 모션을 하는 것을 좋아하지만{"\n"}
                             프론트 혹은 다양한 기술에 대해{"\n"}

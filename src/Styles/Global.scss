@@ -1,10 +1,10 @@
 @import './Init.scss';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Handjet:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbit&display=swap');
 
 html {
-    font-family:'Handjet','Noto Sans KR', sans-serif;
+    font-family:'Handjet','Orbit', sans-serif;
     &.lenis {height: auto;}
     &.lenis-smooth {scroll-behavior: auto;}
     &.lenis-smooth [data-lenis-prevent] {overscroll-behavior: contain;}
@@ -21,8 +21,13 @@ body {
 html,body,p,span,h1,h2,h3,h4,h5,h6 { padding:0;margin:0; }
 a {color:$FontColor;text-decoration:none;}
 i {font-style:normal;}
+li {list-style:none;}
+::selection {
+    color: #fbd733;
+    background: #f94b91;
+}
 
-.hideTxt { width:1px;height:1px;font-size:1px;text-indent:-9999px;color:transparent;overflow:hidden; }
+.hideTxt { width:0px;height:0px;font-size:1px;opacity:0;text-indent:-9999px;color:transparent;overflow:hidden; }
 
 // header
 .header {
@@ -30,9 +35,20 @@ i {font-style:normal;}
     padding-left:getVw(80px);padding-right:getVw(80px);display:flex;justify-content:space-between;
     mix-blend-mode: difference;
     .logo {
-        font-size:30px;color:$FontColor2;font-weight:400;letter-spacing:0.1em;
+        font-size:30px;color:#fff;font-weight:400;letter-spacing:0.1em;
         text-transform:uppercase;
     }
+    &.bk {
+        .logo {
+            color:$FontColor2
+        }
+    }
+}
+// nav
+.navList {
+    position:fixed;right:getVw(80px);top:50%;transform:translateY(-50%);z-index:10;
+    mix-blend-mode: difference;
+    li {color:#fff;}
 }
 // footer
 .footer {
@@ -70,19 +86,40 @@ i {font-style:normal;}
 }
 
 // opening
+@keyframes openTxt {
+    0% {transform:translateY(10%);}
+    100% {transform:translateY(-10%);}
+}
+@keyframes openArrow {
+    0% {height:20px;}
+    100% {height:30px;}
+}
+@keyframes openArrow2 {
+    0% {bottom:30px;}
+    100% {bottom:60px;}
+}
 #opening {
     &.visible {
         .con {position:fixed;}
     }
-    strong {
+    .menuTitle {color:#fff;opacity:1 !important;}
+    .openTxt {
         display:block;position:absolute;top:50%;width:100%;transform:translateY(-50%);text-align:center;
         color:#fff;font-size:getVw(300px);letter-spacing:0.1em;
+        i {
+            display:inline-block;
+            animation-name:openTxt;animation-duration:1s;
+            animation-iteration-count:infinite;animation-direction:alternate;
+        }
     }
     .scrollInfo {
-        display:block;position:absolute;bottom:30px;left:50%;color:#fff;letter-spacing:0.2em;
-        transform:translateX(-50%);
+        display:block;position:absolute;bottom:30px;width:100%;color:#fff;letter-spacing:0.2em;text-align:center;
+        animation-name:openArrow2;animation-duration:1s;
+        animation-iteration-count:infinite;animation-direction:alternate;
         .arrow {
             position:relative;display:block;margin:10px auto 0;width:2px;height:20px;background-color:#fff;text-indent:-9999px;
+            animation-name:openArrow;animation-duration:1s;
+            animation-iteration-count:infinite;animation-direction:alternate;
             &:before,&:after {
                 position:absolute;bottom:0;width:2px;height:10px;background-color:#fff;content:'';
             }
@@ -98,7 +135,7 @@ i {font-style:normal;}
 
 // hello
 #hello {
-    margin-top:0;z-index:-1;
+    margin-top:0;z-index:-1;background-color:$scene1;
     .sectionTitle {
         position:absolute;top:50%;left:getVw(80px);width:50%;transform:translateY(-50%);
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
@@ -110,7 +147,7 @@ i {font-style:normal;}
             }
         }
         &.title1 {
-            // filter:blur(10px);
+            
         }
         &.title2 {
             left:50%;
