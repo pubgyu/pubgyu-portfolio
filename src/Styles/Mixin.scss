@@ -44,6 +44,7 @@
 	color: $FontColor2;
 	font-size: 22px;
 	font-weight:400;letter-spacing:0.1em;
+	mix-blend-mode: difference;
 }
 
 @mixin pc-full {

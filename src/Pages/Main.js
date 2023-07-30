@@ -46,16 +46,22 @@ function Main() {
 
                     <div className="sectionTitle title1">
                         <strong>
-                            <i className="pointTxt">재미있는{"\n"}</i>
+                            {/* <i className="pointTxt">재미있는{"\n"}</i>
                             <i>사이트를{"\n"}</i>
-                            <i>만듭니다</i>
+                            <i>만듭니다</i> */}
+                            <i className="pointTxt">I'm creating{"\n"}</i>
+                            <i>a fun and{"\n"}</i>
+                            <i>exciting site.</i>
                         </strong>
                     </div>
                     <div className="sectionTitle title2">
                         <strong>
-                            <i>반갑습니다{"\n"}</i>
+                            {/* <i>반갑습니다{"\n"}</i>
                             <i className="pointTxt">박규태{"\n"}</i>
-                            <i>입니다</i>
+                            <i>입니다</i> */}
+                            <i>Nice to{"\n"}</i>
+                            <i>meet you{"\n"}</i>
+                            <i className="pointTxt">It's pubgyu{"\n"}</i>
                         </strong>
                     </div>
                 </article>

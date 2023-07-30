@@ -7,13 +7,14 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 // import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 // import { GlitchPass } from 'three/addons/postprocessing/GlitchPass.js';
 
+// let pixelSize = {s:1};
 let pixelSize = {s:15};
 let ModelInfo = {
     p : {x:0,y:0,z:-0.3},
     r : {x:0,y:0,z:0}
 }
 
-let camera, scene, renderer, helloCircle, model, box, composer, modelPixel;
+let camera, scene, renderer, helloCircle, model, box, field, composer, modelPixel;
 const ThreeInit = (_target) => {
     let dom = _target.current;
     const _GLTFLoader = new GLTFLoader();
@@ -22,7 +23,7 @@ const ThreeInit = (_target) => {
     console.log('three init !!!!!!!!!')
 
     let geometry, modelGeometry, material, intensity = 10;
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 10 );
+    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.01, 15 );
     scene = new THREE.Scene();
 
     geometry = new THREE.BoxGeometry( 0.2,0.2,0.2 );
@@ -36,24 +37,63 @@ const ThreeInit = (_target) => {
     box.rotation.set(ModelInfo.r.x,ModelInfo.r.y,ModelInfo.r.z);
     scene.add(box);
     scene.add(light);
+
+    // field
+    field = new THREE.Mesh(
+        new THREE.BoxGeometry( 15,5.5,0 ),
+        new THREE.MeshBasicMaterial({ color: 0x3e4151 })
+    )
+    field.position.set(4.5,-0.35,-3.5);
+    field.rotation.set(-1.55,0,0);
+    scene.add(field);
+    // building -> x,y,z,h
+    let building = [
+        [0.2, 1, 0.9, 2, 0x292a52],
+        [1.1, 2, 0.6, 1.5, 0x244731],
+        [1.7, -1, 0.7, 1.5, 0x292a52],
+        [2, 2, 0.6, 1.5, 0x4b5c57],
+        [2.5, 1, 0.4, 1, 0x244731],
+        [3, 3, 0.6, 1.5, 0x4b5c57],
+        [4, 1, 0.8, 2, 0x4b5c57],
+        [4.5, 2, 0.6, 1.5, 0x292a52],
+        [4.7, 0, 0.6, 1.5, 0x244731],
+        [5, -0.5, 0.4, 1, 0x4b5c57],
+    ]
+    building.map((_this, i) => {
+        let b = new THREE.Mesh(
+            new THREE.BoxGeometry( 0.2,0.3,_this[3] ),
+            new THREE.MeshBasicMaterial({ color: _this[4] })
+        )
+        b.position.set(_this[0],_this[1],_this[2]);
+        field.add(b);
+    });
 	
     // hello circle
     helloCircle = new THREE.Mesh( 
         new THREE.CircleGeometry( 2, 60), 
         new THREE.MeshBasicMaterial({ color: 0x000000 }) 
     );
-    helloCircle.position.set(0,0,-1);
+    helloCircle.position.set(0,0,-10);
+    helloCircle.scale.set(5,5,5);
     scene.add(helloCircle);
 
     // model
-    _GLTFLoader.load('/three/modeling/scene.gltf',
+    // _GLTFLoader.load('/three/modeling/scene.gltf',
+    //     ( gltf ) => {
+    //         model = gltf.scene;
+    //         model.position.set(0,-0.32,0);
+    //         model.scale.set(0.4, 0.4, 0.4)
+    //         model.castShadow = true;
+    //         model.receiveShadow = true;
+    //         box.add( model );
+    //     }
+    // );
+    _GLTFLoader.load('/three/a/scene.gltf',
         ( gltf ) => {
-            model = gltf.scene;
-            model.position.set(0,-0.32,0);
-            model.scale.set(0.4, 0.4, 0.4)
-            model.castShadow = true;
-            model.receiveShadow = true;
-            box.add( model );
+            let model2 = gltf.scene;
+            model2.position.set(0,-0.32,0);
+            model2.scale.set(0.4, 0.4, 0.4)
+            box.add( model2 );
         }
     );
     
@@ -90,4 +130,4 @@ const renderResize = () => {
 window.addEventListener('resize', renderResize, false );
 
 
-export {ThreeInit ,camera, scene, helloCircle, box, modelPixel, pixelSize, ModelInfo}
+export {ThreeInit ,camera, scene, helloCircle, box, field, modelPixel, pixelSize, ModelInfo}

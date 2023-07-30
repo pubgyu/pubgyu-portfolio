@@ -1,6 +1,6 @@
 import gsap from 'gsap'
 import { isMobile } from 'react-device-detect'
-import { box, helloCircle, modelPixel, pixelSize, ModelInfo } from '@/Script/ThreeInit.js';
+import { box, field, helloCircle, modelPixel, pixelSize, ModelInfo } from '@/Script/ThreeInit.js';
 
 export default function Aniscroll(_target) {
     let dom = _target;
@@ -33,8 +33,10 @@ export default function Aniscroll(_target) {
         })
         .to(ModelInfo.p, {duration: 0.5, x : -0.3}, 'st0')
         .to(ModelInfo.r, {duration: 0.5, y : 0.8}, 'st0')
+        .to(field.position, {duration: 0.5, x : -0.1}, 'st0')
         
         .to(ModelInfo.p, {duration: 0.5, x : 0.3}, 'st1')
+        .to(field.position, {duration: 0.8, x : -4}, 'st1')
 
         .to(dom.querySelector('.openTxt'), {duration: 0.5, x : '-100%'}, 'st1')
         .to(dom.querySelector('.scrollInfo'), {duration: 0.5, x : '-100%'}, 'st1')
@@ -57,18 +59,21 @@ export default function Aniscroll(_target) {
         })
         
         // 오프닝
-        // .to(pixelSize, {duration: 0.8, s: 1}, 'st0')
         .to(ModelInfo.p, {duration: 0.4, z:0}, 'st0')
         .to(ModelInfo.r, {duration: 0.4, y:-0.8}, 'st0')
 
         // .to(helloCircle.material.color, {duration: 0.4, r:0.0908, g :0.4452,b :1}, 'st0')
-        .to(helloCircle.position, {duration: 0.4, x:2.5, z:-9}, 'st0')
+        .to(helloCircle.position, {duration: 0.4, x:3.3}, 'st0')
+        .to(helloCircle.scale, {duration: 0.4, x:1,y:1,z:1}, 'st0')
+
+        .to(field.position, {duration: 0.25, z : -25}, 'st0')
 
         // 옆으로 구르는 모션
         .to(ModelInfo.p, {duration: 0.8, y : -0.6,z : -0.3}, 'st1')
         .to(ModelInfo.r, {duration: 0.4, y: -3.4, z: 0}, 'st1')
 
-        .to(helloCircle.position, {duration: 0.8, x:-2.5, z:-6}, 'st1')
+        .to(helloCircle.position, {duration: 0.8, x:-3}, 'st1')
+        .to(helloCircle.scale, {duration: 0.8, x:1.4,y:1.4,z:1.4}, 'st1')
         txtItemArray1.map((_this,i)=> {
             t1.to(_this, {delay: (i*0.05), duration: 0.5, x:'100%'}, 'st1')    
         })
@@ -78,11 +83,18 @@ export default function Aniscroll(_target) {
         })
 
         // 얼굴커지는 장면
-        t1.to(ModelInfo.p, {duration: 0.5, x: -0.3, z: 0, y: -0.25}, 'st2')
+        // t1.to(ModelInfo.p, {duration: 0.5, x: -0.3, z: 0, y: -0.25}, 'st2')
+        // .to(ModelInfo.r, {duration: 0.5, y: -4, z: 0}, 'st2')
+        t1.to(ModelInfo.p, {duration: 0.5, x: -0.3, y: 0, z: -0.3 }, 'st2')
         .to(ModelInfo.r, {duration: 0.5, y: -4, z: 0}, 'st2')
-        .to(helloCircle.position, {duration: 0.8, x:0, z:-1}, 'st2')
+        
+        .to(helloCircle.position, {duration: 0.8, x:0}, 'st2')
+        .to(helloCircle.scale, {duration: 0.8, x:5,y:5,z:5}, 'st2')
+        .to(field.position, {duration: 0.8, x : 2, z : -5}, 'st2')
+        .to(field.rotation, {duration: 0.8, z:1.2}, 'st2')
 
-        .to(helloCircle.material.color, {duration: 0.8, r:0.9, g :0.85,b :0.8}, 'st2')
+        .to(helloCircle.material.color, {duration: 0.8, r:1, g :1,b :1}, 'st2')
+        .to(field.material.color, {duration: 0.8, r:0, g :0,b :0}, 'st2')
         .to(dom, {duration: 0.5}, 'end')
     }
 
