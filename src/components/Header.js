@@ -1,9 +1,10 @@
+import { Link } from 'react-router-dom';
+
 export default function Header() {
 	return (
 		<header className="header">
-            <strong className="logo">Pubgyu.</strong>
+			<Link to="/" className="logo">Pubgyu.</Link>
 			<strong className="logo">Portfolio.</strong>
-			{/* <span className="aa"></span> */}
         </header>
 	);
 }

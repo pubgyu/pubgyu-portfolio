@@ -1,11 +1,23 @@
+import {_lenis} from '@/Script/Scroll.js';
+
 export default function Nav() {
+    
+    const click = (anchor) => _lenis.scrollTo(anchor);
     return (
         <nav className="navList">
             <ul>
-                <li>Hello</li>
-                <li>Introduce</li>
-                <li>Work</li>
-                <li>??</li>
+                <li>
+                    <button className="pBtn" onClick={() => {click('#opening')}}>Hello</button>
+                </li>
+                <li>
+                    <button className="pBtn" onClick={() => {click('#introduce')}}>Introduce</button>
+                </li>
+                <li>
+                    <button className="pBtn" onClick={() => {click('#shorts')}}>Work</button>
+                </li>
+                <li>
+                    <button className="pBtn" onClick={() => {click('#contact')}}>Contact</button>
+                </li>
             </ul>
         </nav>
     )
