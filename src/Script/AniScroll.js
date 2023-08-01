@@ -1,17 +1,29 @@
 import gsap from 'gsap'
 import { isMobile } from 'react-device-detect'
-import { box, field, house, helloCircle, modelPixel, pixelSize, ModelInfo, animationMixer } from '@/Script/ThreeInit.js';
+import ThreeMotion from '@/Script/ThreeInit.js';
 
 export default function Aniscroll(_target) {
     let dom = _target;
-    let test = {
-        frame : 0
+    // ThreeMotion
+    let modelPixel = ThreeMotion.compose.modelPixel;
+    let pixelSize = ThreeMotion.pixelSize;
+    let ModelInfo = ThreeMotion.ModelInfo;
+    let box = ThreeMotion.modeling.box;
+    let bg = ThreeMotion.modeling.bg;
+    let street = ThreeMotion.modeling.street;
+    let gym = ThreeMotion.modeling.gym;
+    
+    let aniFrame = {
+        f : 0
     }
+    
     const scrollUpdate = () => {
         modelPixel.setPixelSize( pixelSize.s );
         box.position.set(ModelInfo.p.x,ModelInfo.p.y,ModelInfo.p.z);
         box.rotation.set(ModelInfo.r.x,ModelInfo.r.y,ModelInfo.r.z);
-        if(animationMixer) animationMixer.update(test.frame);
+        if(ThreeMotion.compose.animationMixer) ThreeMotion.compose.animationMixer.update(aniFrame.f);
+        // three render
+        ThreeMotion.render();
     }
     
     // opening
@@ -24,7 +36,8 @@ export default function Aniscroll(_target) {
             dom.querySelector('.openTxt').append(tag);
             return tag.style.animationDelay = (i*0.3) + 's';
         });
-        let t1 = gsap.timeline({
+        if (ThreeMotion.t1) ThreeMotion.t1.kill();
+        ThreeMotion.t1 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
                 start: "top top",
@@ -34,13 +47,25 @@ export default function Aniscroll(_target) {
                 onUpdate : scrollUpdate
             }
         })
+        // reset style
+        .to(pixelSize, {duration: 0, s:12 }, 'reset')
+        .to(bg.material.color, {duration:0, r:0, g :0,b :0}, 'reset')
+        .to(bg.position, {duration:0,x:0,y:0,z:-10}, 'reset')
+        .to(bg.scale, {duration:0, x:5.2,y:5.2,z:5.2}, 'reset')
+        .to(street.position, {duration:0, x:4.5,y:-0.35,z:-3}, 'reset')
+        .to(street.rotation, {duration:0, x:-1.55,y:0,z:0}, 'reset')
+        .to(ModelInfo.p, {duration: 0, x:0,y:0,z:0}, 'reset')
+        .to(ModelInfo.r, {duration: 0, x:0,y:0,z:0}, 'reset')
+        .to(box.scale, {duration: 0.4, x: 1, y: 1, z: 1}, 'reset')
+
+
         .to(ModelInfo.p, {duration: 0.5, x : -0.3}, 'st0')
         .to(ModelInfo.r, {duration: 0.5, x:0, y : 0.8}, 'st0')
-        .to(field.position, {duration: 0.5, x : -0.1}, 'st0')
+        .to(street.position, {duration: 0.5, x : -0.1}, 'st0')
         
         .to(ModelInfo.p, {duration: 0.5, x : 0}, 'st1')
-        .to(field.position, {duration: 1.5, x : -10}, 'st1')
-        .to(test, {duration: 1.5, frame : 0.03}, 'st1')
+        .to(street.position, {duration: 1.5, x : -10}, 'st1')
+        .to(aniFrame, {duration: 1.5, f : 0.03}, 'st1')
 
         .to(dom.querySelector('.openTxt'), {duration: 0.5, x : '-100%'}, 'st1')
         .to(dom.querySelector('.scrollInfo'), {duration: 0.5, x : '-100%'}, 'st1')
@@ -51,7 +76,8 @@ export default function Aniscroll(_target) {
         let txtItem2 = dom.querySelectorAll('.sectionTitle.title2 i');
         let txtItemArray1 = [...txtItem1];
         let txtItemArray2 = [...txtItem2];
-        let t1 = gsap.timeline({
+        if (ThreeMotion.t2) ThreeMotion.t2.kill();
+        ThreeMotion.t2 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
                 start: "top top",
@@ -65,12 +91,12 @@ export default function Aniscroll(_target) {
         // 오프닝
         .to(ModelInfo.p, {duration: 0.4, x:0.3,z:0}, 'st0')
         .to(ModelInfo.r, {duration: 0.4, x:0, y:-0.8}, 'st0')
-        .to(helloCircle.material.color, {duration: 0.4, r:0, g :0,b :0}, 'st0')
+        .to(bg.material.color, {duration: 0.4, r:0, g :0,b :0}, 'st0')
 
-        .to(helloCircle.position, {duration: 0.4, x:3.3}, 'st0')
-        .to(helloCircle.scale, {duration: 0.4, x:1,y:1,z:1}, 'st0')
+        .to(bg.position, {duration: 0.4, x:3.3}, 'st0')
+        .to(bg.scale, {duration: 0.4, x:1,y:1,z:1}, 'st0')
 
-        .to(field.position, {duration: 0.25, z : -25}, 'st0')
+        .to(street.position, {duration: 0.25, z : -25}, 'st0')
 
         // 옆으로 구르는 모션
         .to(ModelInfo.p, {duration: 0.8, y : -0.6,z : -0.3}, 'st1')
@@ -80,39 +106,40 @@ export default function Aniscroll(_target) {
         .to(box.scale, {duration: 0.4, x: 1, y: 1, z: 1}, 'st1')
         .to(pixelSize, {duration: 0.4, s:15 }, 'st1')
 
-        .to(helloCircle.position, {duration: 0.8, x:-3}, 'st1')
-        .to(helloCircle.scale, {duration: 0.8, x:1.4,y:1.4,z:1.4}, 'st1')
+        .to(bg.position, {duration: 0.8, x:-3}, 'st1')
+        .to(bg.scale, {duration: 0.8, x:1.4,y:1.4,z:1.4}, 'st1')
         txtItemArray1.map((_this,i)=> {
-            return t1.to(_this, {delay: (i*0.05), duration: 0.5, x:'100%'}, 'st1')    
+            return ThreeMotion.t2.to(_this, {delay: (i*0.05), duration: 0.5, x:'100%'}, 'st1')    
         })
         txtItemArray2.map((_this,i)=> {
-            return t1.to(_this, {delay: (i*0.05), duration: 0.5, x:0}, 'st1')
+            return ThreeMotion.t2.to(_this, {delay: (i*0.05), duration: 0.5, x:0}, 'st1')
             .to(_this, {delay: ((txtItemArray2.length-i)*0.05), duration: 0.5, x:'50%'}, 'st2')
         })
 
         // 얼굴커지는 장면
-        t1
-        .to(house.scale, {duration: 0.5, x:1,y:1,z:1 }, 'st2')
-        .to(house.rotation, {duration: 0.5, x:1.2 }, 'st2')
-        .to(house.position, {duration: 0.5, x:0 }, 'st2')
+        ThreeMotion.t2
+        .to(gym.scale, {duration: 0.5, x:1,y:1,z:1 }, 'st2')
+        .to(gym.rotation, {duration: 0.5, x:1.2 }, 'st2')
+        .to(gym.position, {duration: 0.5, x:0 }, 'st2')
 
         .to(pixelSize, {duration: 0.5, s:8 }, 'st2')
         .to(ModelInfo.p, {duration: 0.5, x: 0, y: 0.2, z: -0.8 }, 'st2')
         .to(ModelInfo.r, {duration: 0.5, x: 1.5, y: 0, z: 0}, 'st2')
         .to(box.scale, {duration: 0.5, x: 0.6, y: 0.6, z: 0.6}, 'st2')
         
-        .to(helloCircle.position, {duration: 0.8, x:0}, 'st2')
-        .to(helloCircle.scale, {duration: 0.8, x:5.2,y:5.2,z:5.2}, 'st2')
-        .to(helloCircle.material.color, {duration: 0.5, r:0.47, g :0.47,b :0.35}, 'st2')
+        .to(bg.position, {duration: 0.8, x:0}, 'st2')
+        .to(bg.scale, {duration: 0.8, x:5.2,y:5.2,z:5.2}, 'st2')
+        .to(bg.material.color, {duration: 0.5, r:0.47, g :0.47,b :0.35}, 'st2')
 
         .to(dom, {duration: 0.5}, 'end')
     }
-
-    // // introduce
+    
+    // introduce
     if(dom.id === 'introduce') {
         let txtItem = dom.querySelectorAll('.descWrap .txt');
         let txtItemArray = [...txtItem];
-        let t1 = gsap.timeline({
+        if (ThreeMotion.t3) ThreeMotion.t3.kill();
+        ThreeMotion.t3 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
                 start: "top top",
@@ -126,17 +153,17 @@ export default function Aniscroll(_target) {
         .to(dom.querySelector('.aboutWrap'), {duration: 0.5, y: 0}, 'st0')
 
         txtItemArray.map((_this,i)=> {
-            t1.to(_this, {delay: (i*0.05), duration: 0.3, opacity: 1, y:'-50%'}, `st${i+1}`)
+            ThreeMotion.t3.to(_this, {delay: (i*0.05), duration: 0.3, opacity: 1, y:'-50%'}, `st${i+1}`)
             if (i !== txtItemArray.length-1)
-            t1.to(_this, {delay: (i*0.05), duration: 0.3, opacity: 0, y:'-100%'}, `st${i+2}`)
+            ThreeMotion.t3.to(_this, {delay: (i*0.05), duration: 0.3, opacity: 0, y:'-100%'}, `st${i+2}`)
         })
 
-        t1.to(dom.querySelector('.aboutWrap'), {duration: 0.2, opacity: 0}, 'last')
+        ThreeMotion.t3.to(dom.querySelector('.aboutWrap'), {duration: 0.2, opacity: 0}, 'last')
         .to(dom.querySelector('.aboutWrap'), {duration: 0.5, y: '-100%'}, 'last')
         
         .to(dom, {duration: 0.5}, 'end')
     }
-
+    
     // shorts
     if(dom.id === 'shorts') {
         // 3000
@@ -149,7 +176,8 @@ export default function Aniscroll(_target) {
 
         shortsContent.style.height = (item.length*itemScrollHeight)+'px';
         
-        let t1 = gsap.timeline({
+        if (ThreeMotion.t4) ThreeMotion.t4.kill();
+        ThreeMotion.t4 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
                 start: "top top",
@@ -161,13 +189,13 @@ export default function Aniscroll(_target) {
         })
 
         .to(ModelInfo.r, {duration: 0.5, x:0}, 'st1')
-        .to(house.rotation, {duration: 0.5, x:0 }, 'st1')
-        .to(helloCircle.material.color, {duration: 0.5, r:1, g :1,b :1}, 'st1')
+        .to(gym.rotation, {duration: 0.5, x:0 }, 'st1')
+        .to(bg.material.color, {duration: 0.5, r:1, g :1,b :1}, 'st1')
 
         .to(pixelSize, {duration: 0.5, s:1 }, 'st2')
         .to(box.scale, {duration: 0.5, x: 1, y:1, z:1}, 'st2')
         .to(ModelInfo.p, {duration: 0.5, y: 0, z: 0 }, 'st2')
-        .to(house.position, {duration: 0.5, y:-0.335, z:1 }, 'st2')
+        .to(gym.position, {duration: 0.5, y:-0.335, z:1 }, 'st2')
 
         .to(dom.querySelector('.shortsWrap'), {duration: 0.2, opacity: 1}, 'st3-0')
         .to(dom.querySelector('.shortsWrap'), {duration: 0.5, y: 0}, 'st3-0')
@@ -175,17 +203,18 @@ export default function Aniscroll(_target) {
             _this.style.transform = `rotateY(${i*_deg}deg) translateZ(${_translateZ}px)`;
             _this.style.zIndex = i;
             if (i !== itemArray.length-1) {
-                t1.to(dom.querySelector('.itemList'), {duration: 0.5, rotationY: `-=${_deg}deg`}, `st3-${i+1}`)
+                ThreeMotion.t4.to(dom.querySelector('.itemList'), {duration: 0.5, rotationY: `-=${_deg}deg`}, `st3-${i+1}`)
             }
         })
 
-        t1.to(dom.querySelector('.shortsWrap'), {duration: 0.2, opacity: 0}, 'end')
+        ThreeMotion.t4.to(dom.querySelector('.shortsWrap'), {duration: 0.2, opacity: 0}, 'end')
         .to(dom.querySelector('.shortsWrap'), {duration: 0.5, y: '-50%'}, 'end')
     }
-
+    
     // contact
     if(dom.id === 'contact') {
-        let t1 = gsap.timeline({
+        if (ThreeMotion.t5) ThreeMotion.t5.kill();
+        ThreeMotion.t5 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
                 start: "top top",
@@ -197,7 +226,7 @@ export default function Aniscroll(_target) {
         })
         .to(ModelInfo.r, {duration: 0.5, y:0.6 }, 'st0')
         .to(ModelInfo.p, {duration: 0.5, x:-0.3 }, 'st0')
-        .to(house.position, {duration: 0.5, y:-1.5 }, 'st0')
+        .to(gym.position, {duration: 0.5, y:-1.5 }, 'st0')
         .to(dom.querySelector('.emailTxt'), {duration: 0.5, opacity:1 ,y:'-50%' }, 'st0')
     }
 }

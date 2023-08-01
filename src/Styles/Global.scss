@@ -12,6 +12,7 @@ html {
     &.lenis-scrolling iframe {pointer-events: none;} 
 }
 body {
+    background-color:#000;
     // @include pc-full { background-color:pink; }
     // @include pc { background-color:red; }
     // @include notebook { background-color:blue; }
@@ -223,6 +224,7 @@ button {background-color:transparent;border:0;cursor:pointer;font-family:'Handje
 }
 
 // shorts video
+#shorts {z-index:4;}
 .shortsWrap {
     position:relative;width:100%;perspective:1500px;
     display:flex;justify-content:center;align-content:center;
@@ -267,25 +269,26 @@ button {background-color:transparent;border:0;cursor:pointer;font-family:'Handje
     }
 }
 
-// detail
-.detailWrap {
-    margin-top:55px;padding:0 20px;height:1000px;
-    .coverImgWrap {
-        position:absolute;top:0;left:0;width:100%;height:400px;overflow:hidden;
-        display:flex;justify-content: center;
-        h3 {position:absolute;left:20px;font-size:100px;color:#fff;z-index:1;mix-blend-mode: difference;}
-        img {display:block;width:100%;height:auto;}
-    }
-}
 .threeWrap {
     position:fixed !important;top:0;left:0;width:100%;height:100%;z-index:2;
     canvas {width:100%;height:100%;}
 }
 
 .scrollBarWrap {
-    position:fixed;top:0;left:0;width:100%;height:10px;z-index:20;mix-blend-mode: difference;
+    position:fixed;top:0;left:0;width:100%;height:15px;z-index:20;
+    background-color:#000;
     .progress {
-        position:relative;display:block;width:30%;height:100%;background-color:#fff;
-        
+        position:relative;display:block;width:0;height:100%;background-color:#fff;
     }
+    .txt {
+        position:absolute;top:3px;left:50%;font-size:10px;transform:translateX(-50%);z-index:1;
+        mix-blend-mode: difference;color:#fff;
+    }
+}
+
+.errorWrap {
+    display:flex;height:100vh;min-height:500px;background-color:#000;
+    justify-content:center;align-items:center;flex-direction: column;
+    h2 {font-size:getVw(300px);letter-spacing:0.3em;color:#fff;text-align:center;}
+    .pBtn {display:block;font-size:20px;letter-spacing:0.2em;margin-top:50px;}
 }

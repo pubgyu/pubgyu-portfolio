@@ -2,7 +2,9 @@ import {_lenis} from '@/Script/Scroll.js';
 
 export default function Nav() {
     
-    const click = (anchor) => _lenis.scrollTo(anchor);
+    const click = (anchor) => {
+        _lenis.scrollTo(anchor);
+    }
     return (
         <nav className="navList">
             <ul>

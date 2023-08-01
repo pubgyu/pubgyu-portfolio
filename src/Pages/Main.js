@@ -1,9 +1,11 @@
 import { useRef, useEffect } from 'react'
-import '@/Script/Main.ts';
-import {Scroll} from '@/Script/Scroll.js';
+import {Scroll,_lenis} from '@/Script/Scroll.js';
 import Aniscroll from '@/Script/AniScroll.js';
-import { ThreeInit, scene } from '@/Script/ThreeInit.js';
+import ThreeMotion from '@/Script/ThreeInit.js';
 import ShortsVideo from '@/Components/ShortsVideo.js';
+import Nav from '@/Components/Nav';
+import { motion } from "framer-motion"
+import ScrollBar from '@/Components/ScrollBar';
 
 Scroll();
 
@@ -11,23 +13,35 @@ function Main() {
     // ref
     const threeCanvasRef = useRef();
     const threeDomRef = useRef();
-    
+    setTimeout(() => { _lenis.scrollTo(0); },100)
     useEffect(() => {
-        // if(!scene) ThreeInit(threeCanvasRef);
-        ThreeInit(threeCanvasRef);
-        
-        
+        (!ThreeMotion.setting.scene) ? ThreeMotion.init() : ThreeMotion.remove();
+        ThreeMotion.draw(threeCanvasRef);
+
         const refSection = threeDomRef.current.children;
         for(let i=0;i<refSection.length;i++) {
             if (refSection[i].tagName === 'SECTION')
             Aniscroll(refSection[i]);
         }
 
+        window.addEventListener('resize', ThreeMotion.resize);
+        return ()=>{
+            window.removeEventListener('resize', ThreeMotion.resize);
+        }
     },[]);
 
     return (
-        <div id="threeDom" ref={threeDomRef}>
+        <>
+        <motion.section 
+            initial={{ opacity: 0,y : -100}}
+            animate={{ opacity: 1,y : 0}}
+            exit={{ opacity: 0,y : -100}}
+            transition={{
+                duration: 0.8,
+                delay: 0.8,
+            }} id="threeDom" ref={threeDomRef}>
             <h1 className="hideTxt">PORTFOLIO by pubgyu</h1>
+            <Nav />
 
             <section id="opening" className="contents visible">
                 <article className="con">
@@ -117,7 +131,9 @@ function Main() {
             </section>
 
             <div className="threeWrap" ref={threeCanvasRef}></div>
-        </div>
+        </motion.section>
+        <ScrollBar />
+        </>
 	);
 }
 

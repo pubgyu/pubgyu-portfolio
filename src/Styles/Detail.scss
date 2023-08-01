@@ -1,0 +1,79 @@
+@import './Init.scss';
+
+
+// detail
+.detailWrap {
+    position:relative;padding:200px 0;background-color:#000;color:#fff;
+    padding-left:getVw(80px);padding-right:getVw(80px);
+    .pageTitle {
+        position:fixed;top:34px;left:50%;text-align:center;transform:translateX(-50%);
+        font-size: 22px;font-weight:400;letter-spacing:0.1em;mix-blend-mode: difference;
+    }
+    .titleWrap {
+        display:flex;align-items:center;
+        .img {
+            display:block;width:180px;height:180px;margin-right:70px;
+            border:3px solid #fff;
+        }
+        .title {font-size:100px;white-space:pre-line;line-height:1.1;}
+    }
+    .tag {
+        display:inline-block;margin:50px 0 10px;padding:15px;font-size:20px;letter-spacing:0.2em;
+        border:3px solid #fff;
+    }
+    .url {
+        display:block;margin:10px 0 70px;font-size:20px;text-decoration:underline;
+        color:#fff;
+    }
+    
+    .descWrap {
+        .desc {font-size:20px;line-height:1.5;white-space:pre-line;font-family: 'Roboto', sans-serif;}
+        .imgWrap {
+            display:grid;margin:50px 0;grid-template-columns:repeat(2, 1fr);gap:20px;
+            .img {display:block;width:100%;}
+            .desc {margin-top:10px;font-size:15px;}
+        }
+    }
+    
+    .btnWrap {
+        display:flex;align-items:center;margin-top:100px;
+        .pBtn {display:block;width:300px;margin:0 auto;padding:15px;}
+        .thumbBtn {
+            display:flex;align-items:center;flex-direction:row-reverse;
+            img {
+                display:block;width:100px;filter:grayscale(10);transition:all 1s;
+            }
+            span {
+                position:relative;display:inline-block;margin:0 20px;padding:0 10px 0 0;color:#fff;white-space:nowrap;
+                &:after,&:before {
+                    position:absolute;display:block;width:2px;height:10px;background-color:#fff;content:'';
+                    transform-origin:0 0;
+                }
+                &:after {
+                    top:1px;right:0;transform:rotate(-45deg);
+                }
+                &:before {
+                    top:6px;right:-7px;transform:rotate(45deg);
+                }
+            }
+
+            &:hover,
+            &:focus {
+                img {filter:grayscale(0)}
+            }
+
+            &:first-child {
+                flex-direction:row;
+                span {
+                    padding:0 0 0 10px;
+                    &:after {
+                        top:0;left:0;right:auto;transform:rotate(45deg);
+                    }
+                    &:before {
+                        top:8px;left:-7px;right:auto;transform:rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
+}
