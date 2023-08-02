@@ -1,0 +1,21 @@
+@import './Init.scss';
+
+// nav
+.navList {
+    position:fixed;right:getVw(80px);top:50%;transform:translateY(-50%);z-index:10;
+    text-align:right;mix-blend-mode: difference;
+    @include noteTablet {right:getVw(40px);}
+    @include mobile { top:65px;left:20px;right:20px;transform:translateY(0); }
+    @include tiny {left:10px;right:10px;}
+    ul {
+        @include mobile {display:grid;grid-template-columns:repeat(4, 1fr);gap:10px;}
+    }
+    li {
+        margin-top:15px;
+        &:first-child {margin-top:0;}
+        @include mobile {margin:0;}
+        .pBtn {
+            @include mobile {width:100%;font-size:12px;}
+        }
+    }
+}

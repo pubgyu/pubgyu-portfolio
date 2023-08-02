@@ -1,0 +1,11 @@
+@import './Init.scss';
+
+.loadingWrap {
+    position:fixed;top:0;left:0;
+    display:flex;width:100%;min-height:500px;z-index:10000;
+    justify-content:center;align-items:center;flex-direction: column;
+    height:100vh;height: calc(var(--vh, 1vh) * 100);
+    background-color:#000;
+    .percent {display:block;font-size:30px;letter-spacing:0.1em;color:#fff;}
+    .txt {font-size:50px;letter-spacing:0.3em;color:#fff;}
+}

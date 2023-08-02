@@ -1,7 +1,7 @@
 Model Information:
-* title:	HYPER CASUAL CHARACTER - BOB
-* source:	https://sketchfab.com/3d-models/hyper-casual-character-bob-c4d9501ce4454165bd07380913ab87ee
-* author:	thcyrax (https://sketchfab.com/thcyrax3D)
+* title:	Character122 Rigged Man
+* source:	https://sketchfab.com/3d-models/character122-rigged-man-da561a35675e4a688b05ec73e19a9128
+* author:	BaluCG (https://sketchfab.com/BaluCG)
 
 Model License:
 * license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)

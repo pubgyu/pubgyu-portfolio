@@ -16,7 +16,7 @@ export default function Aniscroll(_target) {
     let aniFrame = {
         f : 0
     }
-    
+
     const scrollUpdate = () => {
         modelPixel.setPixelSize( pixelSize.s );
         box.position.set(ModelInfo.p.x,ModelInfo.p.y,ModelInfo.p.z);
@@ -47,20 +47,27 @@ export default function Aniscroll(_target) {
                 onUpdate : scrollUpdate
             }
         })
+        // window.innerWidth
         // reset style
-        .to(pixelSize, {duration: 0, s:12 }, 'reset')
+        // .to(pixelSize, {duration: 0, s:12 }, 'reset')
+        .to(pixelSize, {duration: 0, s: (window.innerHeight/80) }, 'reset')
         .to(bg.material.color, {duration:0, r:0, g :0,b :0}, 'reset')
         .to(bg.position, {duration:0,x:0,y:0,z:-10}, 'reset')
-        .to(bg.scale, {duration:0, x:5.2,y:5.2,z:5.2}, 'reset')
+        .to(bg.scale, {duration:0, x:5.8,y:5.8,z:5.8}, 'reset')
         .to(street.position, {duration:0, x:4.5,y:-0.35,z:-3}, 'reset')
         .to(street.rotation, {duration:0, x:-1.55,y:0,z:0}, 'reset')
         .to(ModelInfo.p, {duration: 0, x:0,y:0,z:0}, 'reset')
         .to(ModelInfo.r, {duration: 0, x:0,y:0,z:0}, 'reset')
-        .to(box.scale, {duration: 0.4, x: 1, y: 1, z: 1}, 'reset')
 
+        if (window.innerWidth <= 768) {
+            ThreeMotion.t1.to(box.scale, {duration: 0, x: 0.6, y: 0.6, z: 0.6}, 'reset')
+            .to(ModelInfo.p, {duration: 0.5, x : -0.1}, 'st0')
+        }else {
+            ThreeMotion.t1.to(box.scale, {duration: 0, x: 1, y: 1, z: 1}, 'reset')
+            .to(ModelInfo.p, {duration: 0.5, x : -0.3}, 'st0')
+        }
 
-        .to(ModelInfo.p, {duration: 0.5, x : -0.3}, 'st0')
-        .to(ModelInfo.r, {duration: 0.5, x:0, y : 0.8}, 'st0')
+        ThreeMotion.t1.to(ModelInfo.r, {duration: 0.5, x:0, y : 0.8}, 'st0')
         .to(street.position, {duration: 0.5, x : -0.1}, 'st0')
         
         .to(ModelInfo.p, {duration: 0.5, x : 0}, 'st1')
@@ -89,25 +96,39 @@ export default function Aniscroll(_target) {
         })
         
         // 오프닝
-        .to(ModelInfo.p, {duration: 0.4, x:0.3,z:0}, 'st0')
-        .to(ModelInfo.r, {duration: 0.4, x:0, y:-0.8}, 'st0')
+        if (window.innerWidth <= 768) {
+            ThreeMotion.t2.to(ModelInfo.p, {duration: 0.4, x:0.1,z:0}, 'st0')
+        }else {
+            ThreeMotion.t2.to(ModelInfo.p, {duration: 0.4, x:0.3,z:0}, 'st0')
+        }
+        ThreeMotion.t2.to(ModelInfo.r, {duration: 0.4, x:0, y:-0.8}, 'st0')
         .to(bg.material.color, {duration: 0.4, r:0, g :0,b :0}, 'st0')
 
-        .to(bg.position, {duration: 0.4, x:3.3}, 'st0')
-        .to(bg.scale, {duration: 0.4, x:1,y:1,z:1}, 'st0')
+        if (window.innerWidth <= 768) {
+            ThreeMotion.t2.to(bg.position, {duration: 0.4, x:1.3}, 'st0')
+            .to(bg.scale, {duration: 0.4, x:0.5,y:0.5,z:0.5}, 'st0')
+        }else {
+            ThreeMotion.t2.to(bg.position, {duration: 0.4, x:3.3}, 'st0')
+            .to(bg.scale, {duration: 0.4, x:1,y:1,z:1}, 'st0')
+        }
 
-        .to(street.position, {duration: 0.25, z : -25}, 'st0')
+        ThreeMotion.t2.to(street.position, {duration: 0.25, z : -25}, 'st0')
 
         // 옆으로 구르는 모션
         .to(ModelInfo.p, {duration: 0.8, y : -0.6,z : -0.3}, 'st1')
         .to(ModelInfo.r, {duration: 0.4, x:0, y: -3.4, z: 0}, 'st1')
         
-        // reset
         .to(box.scale, {duration: 0.4, x: 1, y: 1, z: 1}, 'st1')
-        .to(pixelSize, {duration: 0.4, s:15 }, 'st1')
+        // .to(pixelSize, {duration: 0.4, s:15 }, 'st1')
 
-        .to(bg.position, {duration: 0.8, x:-3}, 'st1')
-        .to(bg.scale, {duration: 0.8, x:1.4,y:1.4,z:1.4}, 'st1')
+        if (window.innerWidth <= 768) {
+            ThreeMotion.t2.to(bg.scale, {duration: 0.8, x:1,y:1,z:1}, 'st1')
+            .to(bg.position, {duration: 0.8, x:-2.2}, 'st1')
+        }else {
+            ThreeMotion.t2.to(bg.scale, {duration: 0.8, x:1.4,y:1.4,z:1.4}, 'st1')
+            .to(bg.position, {duration: 0.8, x:-3}, 'st1')
+        }
+
         txtItemArray1.map((_this,i)=> {
             return ThreeMotion.t2.to(_this, {delay: (i*0.05), duration: 0.5, x:'100%'}, 'st1')    
         })
@@ -117,18 +138,17 @@ export default function Aniscroll(_target) {
         })
 
         // 얼굴커지는 장면
-        ThreeMotion.t2
-        .to(gym.scale, {duration: 0.5, x:1,y:1,z:1 }, 'st2')
+        ThreeMotion.t2.to(gym.scale, {duration: 0.5, x:1,y:1,z:1 }, 'st2')
         .to(gym.rotation, {duration: 0.5, x:1.2 }, 'st2')
         .to(gym.position, {duration: 0.5, x:0 }, 'st2')
 
-        .to(pixelSize, {duration: 0.5, s:8 }, 'st2')
+        .to(pixelSize, {duration: 0.5, s:(window.innerHeight/120) }, 'st2')
         .to(ModelInfo.p, {duration: 0.5, x: 0, y: 0.2, z: -0.8 }, 'st2')
         .to(ModelInfo.r, {duration: 0.5, x: 1.5, y: 0, z: 0}, 'st2')
         .to(box.scale, {duration: 0.5, x: 0.6, y: 0.6, z: 0.6}, 'st2')
         
         .to(bg.position, {duration: 0.8, x:0}, 'st2')
-        .to(bg.scale, {duration: 0.8, x:5.2,y:5.2,z:5.2}, 'st2')
+        .to(bg.scale, {duration: 0.8, x:5.8,y:5.8,z:5.8}, 'st2')
         .to(bg.material.color, {duration: 0.5, r:0.47, g :0.47,b :0.35}, 'st2')
 
         .to(dom, {duration: 0.5}, 'end')
@@ -192,10 +212,16 @@ export default function Aniscroll(_target) {
         .to(gym.rotation, {duration: 0.5, x:0 }, 'st1')
         .to(bg.material.color, {duration: 0.5, r:1, g :1,b :1}, 'st1')
 
-        .to(pixelSize, {duration: 0.5, s:1 }, 'st2')
-        .to(box.scale, {duration: 0.5, x: 1, y:1, z:1}, 'st2')
+        if (window.innerWidth <= 768) {
+            ThreeMotion.t4.to(box.scale, {duration: 0.5, x: 0.8, y:0.8, z:0.8}, 'st2')
+            .to(gym.position, {duration: 0.5, y:-0.28, z:1 }, 'st2')
+        }else {
+            ThreeMotion.t4.to(box.scale, {duration: 0.5, x: 1, y:1, z:1}, 'st2')
+            .to(gym.position, {duration: 0.5, y:-0.335, z:1 }, 'st2')
+        }
+
+        ThreeMotion.t4.to(pixelSize, {duration: 0.5, s:1 }, 'st2')
         .to(ModelInfo.p, {duration: 0.5, y: 0, z: 0 }, 'st2')
-        .to(gym.position, {duration: 0.5, y:-0.335, z:1 }, 'st2')
 
         .to(dom.querySelector('.shortsWrap'), {duration: 0.2, opacity: 1}, 'st3-0')
         .to(dom.querySelector('.shortsWrap'), {duration: 0.5, y: 0}, 'st3-0')
@@ -209,6 +235,7 @@ export default function Aniscroll(_target) {
 
         ThreeMotion.t4.to(dom.querySelector('.shortsWrap'), {duration: 0.2, opacity: 0}, 'end')
         .to(dom.querySelector('.shortsWrap'), {duration: 0.5, y: '-50%'}, 'end')
+        .to(dom, {duration: 0.5}, 'end2')
     }
     
     // contact
@@ -224,9 +251,16 @@ export default function Aniscroll(_target) {
                 onUpdate : scrollUpdate
             }
         })
-        .to(ModelInfo.r, {duration: 0.5, y:0.6 }, 'st0')
-        .to(ModelInfo.p, {duration: 0.5, x:-0.3 }, 'st0')
-        .to(gym.position, {duration: 0.5, y:-1.5 }, 'st0')
+        if (window.innerWidth <= 768) {
+            ThreeMotion.t5
+            .to(ModelInfo.p, {duration: 0.5, x:0 }, 'st0')
+            .to(box.scale, {duration: 0.5, x: 0.7, y: 0.7, z: 0.7}, 'st0')
+            .to(ModelInfo.r, {duration: 0.5, y:3.3 }, 'st0')
+        }else {
+            ThreeMotion.t5.to(ModelInfo.p, {duration: 0.5, x:-0.3 }, 'st0')
+            .to(ModelInfo.r, {duration: 0.5, y:0.6 }, 'st0')
+        }
+        ThreeMotion.t5.to(gym.position, {duration: 0.5, y:-1.5 }, 'st0')
         .to(dom.querySelector('.emailTxt'), {duration: 0.5, opacity:1 ,y:'-50%' }, 'st0')
     }
 }

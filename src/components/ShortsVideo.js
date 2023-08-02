@@ -13,12 +13,8 @@ function ShortsVideo() {
                                 <img className="previewImg" src={_this.thumbImg} alt="" />
                                 <Link to={`/detail/${_this._id}`} className="txtWrap">
                                     <strong className="title">{_this.title}</strong>
-                                    <span className="desc">{_this.mainDesc}</span>
                                     <span className="tag">{_this.tag}</span>
                                 </Link>
-                                <span className="likeWrap">
-                                    
-                                </span>
                             </div>            
                         )
                     })

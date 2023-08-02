@@ -1,6 +1,5 @@
-import React from 'react';
 import { AnimatePresence } from "framer-motion";
-import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Main from '@/Pages/Main';
 import Detail from '@/Pages/Detail';
@@ -10,8 +9,9 @@ import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
 import '@/Styles/Global.scss';
 
+
 export default function App() {
-	const location = useLocation();
+
 	return (
 		<BrowserRouter>
 			<Header />

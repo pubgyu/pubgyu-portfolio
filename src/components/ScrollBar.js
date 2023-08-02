@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react'
 import { motion } from "framer-motion"
+import '@/Styles/ScrollBar.scss';
 
 const handleProgressBar = () => {
     const totalScroll = document.documentElement.scrollTop;
     const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    let scrollNum = Math.floor(`${(totalScroll / windowHeight) * 100}`);
+    let scrollNum = Math.max(Math.floor(`${(totalScroll / windowHeight) * 100}`),0);
     return scrollNum;
 };
 
@@ -27,7 +28,7 @@ export default function ScrollBar() {
             duration: 0.8,
             delay: 0.8,
         }} className="scrollBarWrap">
-            <i className="progress" style={ {width:(scroll+1)+'%'} }></i>
+            <i className="progress" style={ {width:(scroll)+'%'} }></i>
             <span className="txt">{scroll+'%'}</span>
         </motion.span>
     )

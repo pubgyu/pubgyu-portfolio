@@ -45,6 +45,9 @@
 	font-size: 22px;
 	font-weight:400;letter-spacing:0.1em;
 	mix-blend-mode: difference;
+	@include mobile {
+		font-size: 18px;
+	}
 }
 
 @mixin pc-full {
@@ -62,6 +65,11 @@
 		@content;
 	}
 }
+@mixin noteTablet {
+	@media screen and (min-width: #{$vwport-mo + 1px}) and (max-width: #{$vwport-pc + 'px'}) {
+		@content;
+	}
+}
 @mixin moTablet{
 	@media screen and (max-width: #{$vwport-tb + 'px'}) {
 		@content;
@@ -74,6 +82,11 @@
 }
 @mixin mobile{
     @media screen and (max-width: #{$vwport-mo + 'px'}) {
+		@content;
+	}
+}
+@mixin tiny{
+    @media screen and (max-width: #{$vwport-tiny + 'px'}) {
 		@content;
 	}
 }

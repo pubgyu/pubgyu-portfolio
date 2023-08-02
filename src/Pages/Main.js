@@ -1,20 +1,35 @@
-import { useRef, useEffect } from 'react'
+import * as THREE from 'three';
+import { useRef, useState, useEffect } from 'react'
 import {Scroll,_lenis} from '@/Script/Scroll.js';
 import Aniscroll from '@/Script/AniScroll.js';
 import ThreeMotion from '@/Script/ThreeInit.js';
 import ShortsVideo from '@/Components/ShortsVideo.js';
 import Nav from '@/Components/Nav';
+import Loading from '@/Pages/Loading';
 import { motion } from "framer-motion"
 import ScrollBar from '@/Components/ScrollBar';
+import '@/Styles/Main.scss';
+
+import {threeLoading} from '@/Script/Load-progress.js';
 
 Scroll();
+let mainInit = false;
 
 function Main() {
     // ref
+    const [ready, setReady] = useState(false);
+	const [progress, setProgress] = useState(0);
     const threeCanvasRef = useRef();
     const threeDomRef = useRef();
-    setTimeout(() => { _lenis.scrollTo(0); },100)
+
+    const resizeHandler = () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        ThreeMotion.resize();
+    }
+
     useEffect(() => {
+        document.documentElement.className += ' lenis-stopped';
         (!ThreeMotion.setting.scene) ? ThreeMotion.init() : ThreeMotion.remove();
         ThreeMotion.draw(threeCanvasRef);
 
@@ -23,23 +38,35 @@ function Main() {
             if (refSection[i].tagName === 'SECTION')
             Aniscroll(refSection[i]);
         }
+        
+        if (mainInit) setReady(true);
+        threeLoading.onProgress = (url,loaded,total) => {
+            let loadProgress = Math.floor((loaded / total)*100);
+            setProgress(loadProgress)
+        }
+        threeLoading.onLoad = () => {
+            _lenis.scrollTo(0);
+            setTimeout(()=>{
+                if (!mainInit) {
+                    document.documentElement.className -= ' lenis-stopped';
+                    setReady(true);
+                    mainInit = true;
+                }
+            },500);
+        }
 
-        window.addEventListener('resize', ThreeMotion.resize);
+        resizeHandler();
+        window.addEventListener('resize', resizeHandler);
         return ()=>{
-            window.removeEventListener('resize', ThreeMotion.resize);
+            window.removeEventListener('resize', resizeHandler);
         }
     },[]);
 
     return (
         <>
-        <motion.section 
-            initial={{ opacity: 0,y : -100}}
-            animate={{ opacity: 1,y : 0}}
-            exit={{ opacity: 0,y : -100}}
-            transition={{
-                duration: 0.8,
-                delay: 0.8,
-            }} id="threeDom" ref={threeDomRef}>
+        { (!ready) ? <Loading progress={progress}/> : '' }
+
+        <section id="threeDom" ref={threeDomRef}>
             <h1 className="hideTxt">PORTFOLIO by pubgyu</h1>
             <Nav />
 
@@ -131,7 +158,8 @@ function Main() {
             </section>
 
             <div className="threeWrap" ref={threeCanvasRef}></div>
-        </motion.section>
+        </section>
+
         <ScrollBar />
         </>
 	);

@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from "framer-motion"
+import '@/Styles/Error.scss';
+
 export default function Error() {
     return (
         <motion.section 

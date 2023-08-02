@@ -1,0 +1,16 @@
+@import './Init.scss';
+
+// footer
+.footer {
+    position:relative;border-top:1px solid #000;z-index:20;
+    background-color:#fff;padding:20px;box-sizing:border-box;
+    @include mobile {padding:10px;}
+    .infoWrap {
+        text-align:center;
+        i {
+            display:block;margin-top:10px;color:$FontColor2;letter-spacing:0.1em;
+            @include mobile {margin-top:5px;font-size:12px;}
+            &:first-child {margin-top:0;}
+        }
+    }
+}

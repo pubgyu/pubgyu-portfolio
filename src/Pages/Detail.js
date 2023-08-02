@@ -34,7 +34,9 @@ export default function Detail() {
 				<h3 className="pageTitle">Work Detail</h3>
 				<article>
 					<span className="titleWrap">
-						<img className="img" src={data[idx].thumbImg} alt="" />
+						<span className="img">
+							<img src={data[idx].thumbImg} alt="" />
+						</span>
 						<h4 className="title">{data[idx].title}</h4>
 					</span>
 					<span className="tag">{data[idx].tag}</span>
@@ -60,13 +62,17 @@ export default function Detail() {
 				
 				<span className="btnWrap">
 					<Link to={`/detail/${prevIdx}`} className="thumbBtn">
-						<img src={data[prevIdx].thumbImg} />
-						<span>PREV WORK</span>
+						<span className="imgWrap">
+							<img src={data[prevIdx].thumbImg} />
+						</span>
+						<span className="txt">PREV WORK</span>
 					</Link>
 					<Link to="/#work" className="pBtn">뒤로가기</Link>
 					<Link to={`/detail/${nextIdx}`} className="thumbBtn">
-						<img src={data[nextIdx].thumbImg} />
-						<span>NEXT WORK</span>
+						<span className="imgWrap">
+							<img src={data[nextIdx].thumbImg} />
+						</span>
+						<span className="txt">NEXT WORK</span>
 					</Link>
 				</span>
 			</motion.section>

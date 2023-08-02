@@ -1,4 +1,5 @@
 import {_lenis} from '@/Script/Scroll.js';
+import '@/Styles/Nav.scss';
 
 export default function Nav() {
     

@@ -5,10 +5,12 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPixelatedPass } from 'three/addons/postprocessing/RenderPixelatedPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
+import {threeLoading} from '@/Script/Load-progress.js';
+
 const ThreeMotion = {
     t1 : null, t2 : null, t3 : null, t4 : null, t5 : null,
     pixelSize : {
-        s:12
+        s: (window.innerHeight/80)
     },
     ModelInfo : {
         p : {x:0,y:0,z:-0.3},
@@ -32,13 +34,12 @@ const ThreeMotion = {
         modelPixel : '', 
         animationMixer : '',
         outputPass : new OutputPass(),
-        _GLTFLoader : new GLTFLoader()
+        _GLTFLoader : new GLTFLoader(threeLoading)
     },
     test : function () {
         
     },
     init : function () {
-        console.log('three init !!!!!!!!!')
         this.setting.scene = new THREE.Scene();
         this.setting.camera.position.z = 1;
         this.resize();
@@ -84,13 +85,12 @@ const ThreeMotion = {
             new THREE.MeshBasicMaterial({ color: 0x000000 }) 
         );
         this.modeling.bg.position.set(0,0,-10);
-        this.modeling.bg.scale.set(5.2,5.2,5.2);
+        this.modeling.bg.scale.set(5.8,5.8,5.8);
 
         // model
         let gltfList = [
             '/three/modeling/scene.gltf',
             '/three/house/scene.gltf',
-            '/three/modeling2/scene.gltf'
         ];
         gltfList.map((_this,i)=> {
             return this.compose._GLTFLoader.load(_this,
@@ -98,23 +98,18 @@ const ThreeMotion = {
                     let model = gltf.scene;
                     if (i === 0) {
                         model.position.set(0,-0.32,0);
-                        model.scale.set(0.4, 0.4, 0.4)
-                        // this.modeling.box.add( model );
+                        model.scale.set(0.6, 0.6, 0.6)
+                        this.compose.animationMixer = new THREE.AnimationMixer(model)
+                        this.compose.animationMixer.clipAction(gltf.animations[0]).play();
+
+                        this.modeling.box.add( model );
+                        this.render();
                     }
                     if (i === 1) {
                         model.position.set(0,0,0);
                         model.rotation.set(0,0,0);
                         model.scale.set(25,25,25)
                         this.modeling.gym.add( model );
-                    }
-                    if (i === 2) {
-                        model.position.set(-0.1,-0.3,0);
-                        model.scale.set(0.0032, 0.0032, 0.0032)
-                        this.compose.animationMixer = new THREE.AnimationMixer(model)
-                        this.compose.animationMixer.clipAction(gltf.animations[0]).play();
-
-                        this.modeling.box.add( model );
-                        this.render();
                     }
                 }
             );
@@ -151,6 +146,8 @@ const ThreeMotion = {
         ThreeMotion.setting.camera.aspect = window.innerWidth / window.innerHeight;
         ThreeMotion.setting.camera.updateProjectionMatrix();
         ThreeMotion.setting.renderer.setSize( window.innerWidth, window.innerHeight );
+
+        if(this.compose.composer) this.render();
     },
     remove : function() {
         // reset
