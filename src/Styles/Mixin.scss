@@ -1,13 +1,92 @@
-// get vw
+// // get vw
+// @use "sass:math";
+// @function funcVW($px, $width: $vwport-pc) {
+// 	$w: math.div(1, math.div($width, 1px)) * 100;
+// 	$vws: null;
+
+// 	@each $v in $px {
+// 		@if type-of($v) == number {
+// 			$px: math.div($v, 1px);
+// 			$vw: $px * $w;
+// 			$vws: append($vws, if($vw == 0, 0, $vw + vw));
+// 		} @else {
+// 			$vws: append($vws, $v);
+// 		}
+// 	}
+
+// 	@return $vws;
+// }
+
+// @mixin vw($property, $px, $standard: $vwport-pc) {
+// 	#{$property}: funcVW($px, $standard);
+// }
+// @mixin tab-vw($property, $px) {
+// 	#{$property}: funcVW($px, $vwport-tb);
+// }
+
 @function getVw($fontSize){
-    $vwContext:$PcViewport * 0.01 * 1px;
+    $vwContext:$pc-full * 0.01 * 1px;
     @return $fontSize / $vwContext * 1vw;
 }
+
+
 // section title
 @mixin sectionText{
 	display:block;
 	color: $FontColor2;
 	font-size: getVw(80px);
-	white-space: pre-line;
 	font-weight:bold;
+	white-space:pre-line;
+}
+// menu title
+@mixin menuText{
+	display:block;
+	color: $FontColor2;
+	font-size: 22px;
+	font-weight:400;letter-spacing:0.1em;
+	mix-blend-mode: difference;
+	@include mobile {
+		font-size: 18px;
+	}
+}
+
+@mixin pc-full {
+	@media screen and (min-width: #{$pc-full + 'px'}) {
+		@content;
+	}
+}
+@mixin pc {
+	@media screen and (min-width: #{$vwport-pc + 1px}) and (max-width: #{$pc-full + 'px'}) {
+		@content;
+	}
+}
+@mixin notebook {
+	@media screen and (min-width: #{$vwport-tb + 1px}) and (max-width: #{$vwport-pc + 'px'}) {
+		@content;
+	}
+}
+@mixin noteTablet {
+	@media screen and (min-width: #{$vwport-mo + 1px}) and (max-width: #{$vwport-pc + 'px'}) {
+		@content;
+	}
+}
+@mixin moTablet{
+	@media screen and (max-width: #{$vwport-tb + 'px'}) {
+		@content;
+	}
+}
+@mixin tablet{
+	@media screen and (min-width: #{$vwport-mo + 1px}) and (max-width: #{$vwport-tb + 'px'}) {
+		@content;
+	}
+}
+@mixin mobile{
+    @media screen and (max-width: #{$vwport-mo + 'px'}) {
+		@content;
+	}
+}
+@mixin tiny{
+    @media screen and (max-width: #{$vwport-tiny + 'px'}) {
+		@content;
+	}
 }

@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom';
+import '@/Styles/Header.scss';
+
 export default function Header() {
 	return (
 		<header className="header">
-            <strong className="logo">Pubgyu.</strong>
-			<strong className="logo">Portfolio</strong>
+			<Link to="/" className="logo">Pubgyu.</Link>
+			<strong className="logo">Portfolio.</strong>
         </header>
 	);
 }

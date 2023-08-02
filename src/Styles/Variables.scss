@@ -1,8 +1,12 @@
-$PcViewport: 1920;
-$NotebookViewport: 1440;
-$TabletViewport: 1024;
-$MobileViewport: 768;
+// viewport size breakpoint
+$pc-full: 1800;
+$vwport-pc: 1440;
+$vwport-tb: 1024;
+$vwport-mo: 768;
+$vwport-tiny: 320;
+
+// color
 $FontColor : #000;
-$FontColor2 : #2b2b2b;
-$FontColor3 : #454545;
-$Color1 : blue;
+$FontColor2 : #003f46;
+$scene1 : #d6f5c1;
+$scene2 : #708164;

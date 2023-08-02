@@ -3,11 +3,14 @@ import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
-
-export default function Scroll() {
-    console.log('scroll init!!!!!!!');
+let _lenis;
+const Scroll = () => {
     // lenis scroll setting
-    const lenis = new Lenis({ lerp: 0.1, })
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    _lenis = new Lenis({ lerp: 0.1, })
+    _lenis.on('scroll', (e) => {
+        ScrollTrigger.update();
+    });
+    gsap.ticker.add((time) => { _lenis.raf(time * 1000); });
 }
+
+export {Scroll, _lenis}

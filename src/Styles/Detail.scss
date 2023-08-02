@@ -1,0 +1,124 @@
+@import './Init.scss';
+
+
+// detail
+.detailWrap {
+    position:relative;padding:200px 0;background-color:#000;color:#fff;
+    padding-left:getVw(80px);padding-right:getVw(80px);
+    @include noteTablet {
+        padding:150px 0;padding-left:getVw(40px);padding-right:getVw(40px);
+    }
+    @include mobile {padding:100px 20px;}
+    @include tiny {padding:100px 10px;}
+    .pageTitle {
+        position:fixed;top:34px;left:50%;text-align:center;transform:translateX(-50%);
+        font-size: 22px;font-weight:400;letter-spacing:0.1em;mix-blend-mode: difference;
+        @include mobile {top:31px;font-size:18px;}
+        @include tiny {top:33px;font-size:14px;}
+    }
+    .titleWrap {
+        display:flex;align-items:center;
+        @include mobile {display:block;}
+        .img {
+            position:relative;display:block;width:180px;height:180px;margin-right:70px;
+            border:3px solid #fff;overflow:hidden;
+            img {position:absolute;top:0;left:50%;display:block;height:100%;transform:translateX(-50%);}
+            @include noteTablet {
+                width:150px;height:150px;margin-right:30px;border-width:1px;
+            }
+            @include mobile {width:90px;height:90px;margin:0 0 20px 0;}
+        }
+        .title {
+            font-size:100px;white-space:pre-line;line-height:1.1;
+            @include noteTablet {font-size:80px;}
+            @include mobile {font-size:40px;}
+        }
+    }
+    .tag {
+        display:inline-block;margin:50px 0 10px;padding:15px;font-size:20px;letter-spacing:0.2em;
+        border:3px solid #fff;
+        @include noteTablet {
+            margin:35px 0 10px;font-size:15px;border-width:1px;
+        }
+        @include mobile {margin:20px 0 10px;font-size:13px;border-width:1px;}
+        @include tiny {font-size:10px;}
+    }
+    .url {
+        display:block;margin:10px 0 70px;font-size:20px;text-decoration:underline;
+        color:#fff;
+        @include noteTablet {
+            margin:10px 0 35px;font-size:15px;
+        }
+        @include mobile {margin:10px 0 20px;font-size:12px;}
+    }
+    
+    .descWrap {
+        .desc {
+            font-size:20px;line-height:1.5;white-space:pre-line;font-family: 'Roboto', sans-serif;
+            @include noteTablet {font-size:18px;}
+            @include mobile {font-size:15px;}
+        }
+        .imgWrap {
+            display:grid;margin:50px 0;grid-template-columns:repeat(2, 1fr);gap:20px;
+            @include noteTablet {gap:15px;}
+            @include mobile {grid-template-columns:repeat(1, 1fr);}
+            .img {display:block;width:100%;}
+            .desc {
+                margin-top:10px;font-size:15px;
+                @include mobile {margin-top:5px;font-size:13px;}
+            }
+        }
+    }
+    
+    .btnWrap {
+        display:flex;align-items:center;margin-top:100px;
+        @include mobile {margin-top:50px;}
+        .pBtn {
+            display:block;width:300px;margin:0 auto;padding:15px;
+            @include noteTablet {width:200px;}
+            @include mobile {width:120px;}
+            @include tiny {width:100px;}
+        }
+        .thumbBtn {
+            display:flex;align-items:center;flex-direction:row-reverse;
+            .imgWrap {
+                position:relative;display:block;width:100px;height:100px;filter:grayscale(10);transition:all 1s;
+                overflow:hidden;
+                @include mobile {display:none;}
+                img {position:absolute;top:0;left:50%;display:block;height:100%;transform:translateX(-50%);}
+            }
+            .txt {
+                position:relative;display:inline-block;margin:0 20px;padding:0 10px 0 0;color:#fff;white-space:nowrap;
+                @include tiny {margin:0 10px;text-indent:-99999px;}
+                &:after,&:before {
+                    position:absolute;display:block;width:2px;height:10px;background-color:#fff;content:'';
+                    transform-origin:0 0;
+                }
+                &:after {
+                    top:1px;right:0;transform:rotate(-45deg);
+                }
+                &:before {
+                    top:6px;right:-7px;transform:rotate(45deg);
+                }
+            }
+
+            &:hover,
+            &:focus {
+                .imgWrap {filter:grayscale(0)}
+            }
+
+            &:first-child {
+                flex-direction:row;
+                span {
+                    padding:0 0 0 10px;
+                    &:after {
+                        top:0;left:0;right:auto;transform:rotate(45deg);
+                    }
+                    &:before {
+                        top:8px;left:-7px;right:auto;transform:rotate(-45deg);
+                    }
+                }
+            }
+        }
+    }
+}
