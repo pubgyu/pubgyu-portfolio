@@ -12,15 +12,7 @@ html {
     &.lenis-stopped {overflow: hidden;}
     &.lenis-scrolling iframe {pointer-events: none;} 
 }
-body {
-    background-color:#000;
-    // @include pc-full { background-color:pink; }
-    // @include pc { background-color:red; }
-    // @include notebook { background-color:blue; }
-    // @include noteTablet { background-color:blue; }
-    // @include tablet { background-color:green; }
-    // @include mobile { background-color:yellow; }
-}
+body {background-color:#000;}
 html,body,p,span,h1,h2,h3,h4,h5,h6 { padding:0;margin:0; }
 a {color:$FontColor;text-decoration:none;}
 i {font-style:normal;}
@@ -30,8 +22,6 @@ button {background-color:transparent;border:0;cursor:pointer;font-family:'Handje
 ::selection { color: #003f46; background: #d6f5c1; }
 
 .hideTxt { width:0px;height:0px;font-size:1px;opacity:0;text-indent:-9999px;color:transparent;overflow:hidden; }
-
-.test {position:fixed;top:100px;left:0;z-index:100;font-size:20px;color:red;}
 
 // button
 .pBtn {
@@ -52,3 +42,6 @@ button {background-color:transparent;border:0;cursor:pointer;font-family:'Handje
         &:before {height:100%;}
     }
 }
+
+// mask
+.maskWrap {position:fixed;top:0;left:0;width:100%;height:100%;background-color:#000;z-index:500;}

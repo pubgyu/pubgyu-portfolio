@@ -4,7 +4,12 @@ import '@/Styles/Nav.scss';
 export default function Nav() {
     
     const click = (anchor) => {
-        _lenis.scrollTo(anchor);
+        let h;
+        if (anchor === '#opening') h = 0;
+        if (anchor === '#introduce') h = document.querySelector(anchor).offsetTop + 300;
+        if (anchor === '#shorts') h = document.querySelector(anchor).offsetTop + 2000;
+        if (anchor === '#contact') h = document.querySelector(anchor).offsetTop + 2000;
+        _lenis.scrollTo(h);
     }
     return (
         <nav className="navList">

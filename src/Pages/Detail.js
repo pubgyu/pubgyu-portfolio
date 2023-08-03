@@ -5,7 +5,7 @@ import DataBase from '@/DataBase';
 import '@/Styles/Detail.scss';
 import {_lenis} from '@/Script/Scroll.js';
 import { motion } from "framer-motion"
-import ScrollBar from '@/Components/ScrollBar';
+import PageUtil from '@/Components/PageUtil';
 
 export default function Detail() {
 	let params = useParams();
@@ -76,7 +76,8 @@ export default function Detail() {
 					</Link>
 				</span>
 			</motion.section>
-			<ScrollBar />
+
+			<PageUtil />
 			</>
 		)
 	}

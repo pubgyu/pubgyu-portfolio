@@ -61,6 +61,7 @@ const ThreeMotion = {
         );
         this.modeling.box.position.set(this.ModelInfo.p.x,this.ModelInfo.p.y,this.ModelInfo.p.z);
         this.modeling.box.rotation.set(this.ModelInfo.r.x,this.ModelInfo.r.y,this.ModelInfo.r.z);
+        (window.innerWidth <= 768) ? this.modeling.box.scale.set(0.6,0.6,0.6) : this.modeling.box.scale.set(1,1,1);
 
         // street
         this.modeling.street = new THREE.Mesh(
@@ -101,6 +102,7 @@ const ThreeMotion = {
                         model.scale.set(0.6, 0.6, 0.6)
                         this.compose.animationMixer = new THREE.AnimationMixer(model)
                         this.compose.animationMixer.clipAction(gltf.animations[0]).play();
+                        this.compose.animationMixer.update(0);
 
                         this.modeling.box.add( model );
                         this.render();
