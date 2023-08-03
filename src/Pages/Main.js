@@ -1,5 +1,6 @@
-import * as THREE from 'three';
 import { useRef, useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom';
+
 import {Scroll,_lenis} from '@/Script/Scroll.js';
 import Aniscroll from '@/Script/AniScroll.js';
 import ThreeMotion from '@/Script/ThreeInit.js';
@@ -7,7 +8,8 @@ import ShortsVideo from '@/Components/ShortsVideo.js';
 import Nav from '@/Components/Nav';
 import Loading from '@/Pages/Loading';
 import { motion } from "framer-motion"
-import ScrollBar from '@/Components/ScrollBar';
+import PageUtil from '@/Components/PageUtil';
+
 import '@/Styles/Main.scss';
 
 import {threeLoading} from '@/Script/Load-progress.js';
@@ -21,6 +23,8 @@ function Main() {
 	const [progress, setProgress] = useState(0);
     const threeCanvasRef = useRef();
     const threeDomRef = useRef();
+    const workRef = useRef();
+    const location = useLocation();
 
     const resizeHandler = () => {
         const vh = window.innerHeight * 0.01;
@@ -29,7 +33,6 @@ function Main() {
     }
 
     useEffect(() => {
-        document.documentElement.className += ' lenis-stopped';
         (!ThreeMotion.setting.scene) ? ThreeMotion.init() : ThreeMotion.remove();
         ThreeMotion.draw(threeCanvasRef);
 
@@ -45,13 +48,21 @@ function Main() {
             setProgress(loadProgress)
         }
         threeLoading.onLoad = () => {
+            // load
             _lenis.scrollTo(0);
             setTimeout(()=>{
                 if (!mainInit) {
-                    document.documentElement.className -= ' lenis-stopped';
                     setReady(true);
                     mainInit = true;
                 }
+            },500);
+        }
+
+        // scroll
+        if (location.hash === '#work') {
+            let h = workRef.current.offsetTop + 2000;
+            setTimeout(()=>{
+                _lenis.scrollTo(h);
             },500);
         }
 
@@ -66,7 +77,13 @@ function Main() {
         <>
         { (!ready) ? <Loading progress={progress}/> : '' }
 
-        <section id="threeDom" ref={threeDomRef}>
+        <motion.section 
+			initial={{ opacity: 0}}
+            animate={{ opacity: 1}}
+            transition={{
+                duration: 0.8,
+                delay: 1,
+            }} id="threeDom" ref={threeDomRef}>
             <h1 className="hideTxt">PORTFOLIO by pubgyu</h1>
             <Nav />
 
@@ -135,7 +152,7 @@ function Main() {
                 </article>
             </section>
 
-            <section id="shorts" className="contents">
+            <section id="shorts" className="contents" ref={workRef}>
                 <article className="con center">
                     <h2 className="menuTitle">work</h2>
 
@@ -158,9 +175,9 @@ function Main() {
             </section>
 
             <div className="threeWrap" ref={threeCanvasRef}></div>
-        </section>
+        </motion.section>
 
-        <ScrollBar />
+        <PageUtil />
         </>
 	);
 }

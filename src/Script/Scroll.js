@@ -6,7 +6,10 @@ gsap.registerPlugin(ScrollTrigger)
 let _lenis;
 const Scroll = () => {
     // lenis scroll setting
-    _lenis = new Lenis({ lerp: 0.1, })
+    _lenis = new Lenis({ 
+        lerp: 0.1, 
+        // smoothTouch : true
+    })
     _lenis.on('scroll', (e) => {
         ScrollTrigger.update();
     });
