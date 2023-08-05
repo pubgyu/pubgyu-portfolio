@@ -36,9 +36,6 @@ const ThreeMotion = {
         outputPass : new OutputPass(),
         _GLTFLoader : new GLTFLoader(threeLoading)
     },
-    test : function () {
-        
-    },
     init : function () {
         this.setting.scene = new THREE.Scene();
         this.setting.camera.position.z = 1;

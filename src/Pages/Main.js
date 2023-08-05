@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 
-import {Scroll,_lenis} from '@/Script/Scroll.js';
+import {_lenis} from '@/Script/Scroll.js';
 import Aniscroll from '@/Script/AniScroll.js';
 import ThreeMotion from '@/Script/ThreeInit.js';
 import ShortsVideo from '@/Components/ShortsVideo.js';
@@ -14,7 +14,6 @@ import '@/Styles/Main.scss';
 
 import {threeLoading} from '@/Script/Load-progress.js';
 
-Scroll();
 let mainInit = false;
 
 function Main() {
@@ -28,11 +27,13 @@ function Main() {
 
     const resizeHandler = () => {
         const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        document.documentElement.style.setProperty('--vh', `${vh.toFixed(2)}px`);
         ThreeMotion.resize();
     }
 
     useEffect(() => {
+        setTimeout(()=>{ _lenis.resize(); },10);
+
         (!ThreeMotion.setting.scene) ? ThreeMotion.init() : ThreeMotion.remove();
         ThreeMotion.draw(threeCanvasRef);
 
@@ -65,7 +66,7 @@ function Main() {
                 _lenis.scrollTo(h);
             },500);
         }
-
+        
         resizeHandler();
         window.addEventListener('resize', resizeHandler);
         return ()=>{
@@ -155,8 +156,12 @@ function Main() {
             <section id="shorts" className="contents" ref={workRef}>
                 <article className="con center">
                     <h2 className="menuTitle">work</h2>
-
+                    <motion.div drag="x" className="test" onDrag={(e,info)=>{
+                        // console.log();
+                        // _lenis.scrollTo(document.documentElement.scrollTop - info.offset.x );
+                    }}>
                     <ShortsVideo />
+                    </motion.div>
                 </article>
             </section>
             

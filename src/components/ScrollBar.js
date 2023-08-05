@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react'
 import { motion } from "framer-motion"
 import '@/Styles/ScrollBar.scss';
 
+let root = document.getElementById('root');
 const handleProgressBar = () => {
-    const totalScroll = document.documentElement.scrollTop;
-    const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const totalScroll = root.scrollTop;
+    const windowHeight = root.scrollHeight - root.clientHeight;
     let scrollNum = Math.max(Math.floor(`${(totalScroll / windowHeight) * 100}`),0);
     return scrollNum;
 };
@@ -12,11 +13,11 @@ const handleProgressBar = () => {
 export default function ScrollBar() {
     let [scroll, setScroll] = useState(0);
     useEffect(() => {
-        window.addEventListener('scroll', () => {
+        root.addEventListener('scroll', () => {
             setScroll(handleProgressBar);
         });
         return ()=>{
-            window.removeEventListener('scroll', handleProgressBar);
+            root.removeEventListener('scroll', handleProgressBar);
         }
     },[]);
     

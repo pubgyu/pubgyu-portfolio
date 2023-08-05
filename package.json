@@ -2,6 +2,7 @@
   "name": "pubgyu",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://pubgyu.github.io/",
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "@studio-freight/lenis": "^1.0.19",
@@ -9,6 +10,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "framer-motion": "^10.15.0",
+    "gh-pages": "^5.0.0",
     "gsap": "^3.12.2",
     "node-sass": "^7.0.3",
     "react": "^18.2.0",
@@ -22,9 +24,12 @@
   },
   "scripts": {
     "start": "craco start",
+    "postbuild" : "cp build/index.html build/404.html",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [

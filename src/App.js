@@ -1,5 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import {Scroll} from '@/Script/Scroll.js';
+import { isIOS } from 'react-device-detect';
 
 import Main from '@/Pages/Main';
 import Detail from '@/Pages/Detail';
@@ -9,9 +11,9 @@ import Header from '@/Components/Header';
 import Footer from '@/Components/Footer';
 import '@/Styles/Global.scss';
 
+Scroll();
 
 export default function App() {
-
 	return (
 		<BrowserRouter>
 			<Header />
