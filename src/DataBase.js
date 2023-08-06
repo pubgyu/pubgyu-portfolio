@@ -26,7 +26,7 @@ const DataBase = [
         _id : 2,
         title : 'Pubgyu Portfolio',
         url : '',
-        mainDesc : '포트폴리오 입니다.\n CRA로 제작 되었으며 반응형 웹 입니다. lenis scroll과 gsap 의 timeline을 이용 하여 three.js로 모션을 구현하였습니다.\n컨셉은 고전게임 컨셉화 하였습니다.\n 작업물의 대한 data는 mongoDB에서 가져오고 있으며 어드민은 next.js로 제작 되었습니다.\n style은 컴포넌트 수도 많지 않고 작업할때 화면 분할이 더 가독성이 좋아 styled-components 대신 scss로 작업하였습니다.\n기존에 SSR 형식으로만 작업하여 신경을 크게 쓰지 못하였는데 SPA 상황일때는 페이지간 마운트,언마운트로 인한 모션의 init과 reset처리의 대한 작업에 대해 신경을 많이 썼습니다.\n 특히 움직임이 많은 화면이다 보니 기존엔 dom을 직접 제어하였지만 이번엔 ref으로 접근하여 제어하였습니다.',
+        mainDesc : '포트폴리오 입니다.\n CRA로 제작 되었으며 반응형 웹 입니다. lenis scroll과 gsap 의 timeline을 이용 하여 three.js로 모션을 구현하였습니다.\n컨셉은 고전게임 컨셉화 하였습니다.\n style은 컴포넌트 수도 많지 않고 작업할때 화면 분할이 더 가독성이 좋아 styled-components 대신 scss로 작업하였습니다.\n기존에 SSR 형식으로만 작업하여 신경을 크게 쓰지 못하였는데 SPA 상황일때는 페이지간 마운트,언마운트로 인한 모션의 init과 reset처리의 대한 작업에 대해 신경을 많이 썼습니다.\n 특히 움직임이 많은 화면이다 보니 기존엔 dom을 직접 제어하였지만 이번엔 ref으로 접근하여 제어하였습니다.',
         tag : 'react(CRA),SCSS,WEBGL,JS',
         thumbImg : '/images/work3.gif',
         images : ['/images/@temp3-1.jpg','/images/@temp3-2.gif','/images/@temp3-3.gif','/images/@temp3-4.gif'],

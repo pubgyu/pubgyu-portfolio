@@ -1,13 +1,15 @@
 @import './Init.scss';
 
 .loadingWrap {
-    position:fixed;top:0;left:0;width:100%;min-height:500px;z-index:10000;
+    position:fixed;top:0;left:0;width:100%;z-index:10000;
     height:100vh;height: calc(var(--vh, 1vh) * 100);
     background-color:#000;
+
+    .loadingCon {position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);}
+    .txt {display:block;margin-bottom:-60px;font-size:20px;color:#fff;text-align:center;}
     
     .progressBar {
-        position:absolute;top:50%;left:50%;display:block;width:150px;height:150px;
-        transform:translate(-50%,-50%);
+        display:block;width:150px;height:150px;
         .percent {
             position:absolute;top:50%;left:50%;display:block;transform:translate(-50%,-50%);z-index:1;
             font-size:13px;letter-spacing:0.1em;color:#fff;

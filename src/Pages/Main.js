@@ -32,7 +32,10 @@ function Main() {
     }
 
     useEffect(() => {
-        setTimeout(()=>{ _lenis.resize(); },10);
+        setTimeout(()=>{ 
+            _lenis.scrollTo(0);
+            _lenis.resize(); 
+        },100);
 
         (!ThreeMotion.setting.scene) ? ThreeMotion.init() : ThreeMotion.remove();
         ThreeMotion.draw(threeCanvasRef);
@@ -94,7 +97,7 @@ function Main() {
                     <strong className="hideTxt">Hello!</strong>
                     <strong className="openTxt" aria-hidden="true"></strong>
                     <span className="scrollInfo">
-                        Scroll Down !
+                        Only Scroll Down !
                         <i className="arrow">arrow</i>
                     </span>
                 </article>
@@ -156,12 +159,8 @@ function Main() {
             <section id="shorts" className="contents" ref={workRef}>
                 <article className="con center">
                     <h2 className="menuTitle">work</h2>
-                    <motion.div drag="x" className="test" onDrag={(e,info)=>{
-                        // console.log();
-                        // _lenis.scrollTo(document.documentElement.scrollTop - info.offset.x );
-                    }}>
+
                     <ShortsVideo />
-                    </motion.div>
                 </article>
             </section>
             
