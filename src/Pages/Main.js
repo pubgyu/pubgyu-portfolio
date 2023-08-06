@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 
-import {Scroll,_lenis} from '@/Script/Scroll.js';
+import {_lenis} from '@/Script/Scroll.js';
 import Aniscroll from '@/Script/AniScroll.js';
 import ThreeMotion from '@/Script/ThreeInit.js';
 import ShortsVideo from '@/Components/ShortsVideo.js';
@@ -14,7 +14,6 @@ import '@/Styles/Main.scss';
 
 import {threeLoading} from '@/Script/Load-progress.js';
 
-Scroll();
 let mainInit = false;
 
 function Main() {
@@ -28,11 +27,16 @@ function Main() {
 
     const resizeHandler = () => {
         const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', `${vh}px`);
+        document.documentElement.style.setProperty('--vh', `${vh.toFixed(2)}px`);
         ThreeMotion.resize();
     }
 
     useEffect(() => {
+        setTimeout(()=>{ 
+            _lenis.scrollTo(0);
+            _lenis.resize(); 
+        },100);
+
         (!ThreeMotion.setting.scene) ? ThreeMotion.init() : ThreeMotion.remove();
         ThreeMotion.draw(threeCanvasRef);
 
@@ -65,7 +69,7 @@ function Main() {
                 _lenis.scrollTo(h);
             },500);
         }
-
+        
         resizeHandler();
         window.addEventListener('resize', resizeHandler);
         return ()=>{
@@ -93,7 +97,7 @@ function Main() {
                     <strong className="hideTxt">Hello!</strong>
                     <strong className="openTxt" aria-hidden="true"></strong>
                     <span className="scrollInfo">
-                        Scroll Down !
+                        Only Scroll Down !
                         <i className="arrow">arrow</i>
                     </span>
                 </article>

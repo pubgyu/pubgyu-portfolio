@@ -1,9 +1,9 @@
 import gsap from 'gsap'
-import { isMobile } from 'react-device-detect'
 import ThreeMotion from '@/Script/ThreeInit.js';
 
 export default function Aniscroll(_target) {
     let dom = _target;
+    let root = document.getElementById('root');
     // ThreeMotion
     let modelPixel = ThreeMotion.compose.modelPixel;
     let pixelSize = ThreeMotion.pixelSize;
@@ -41,9 +41,10 @@ export default function Aniscroll(_target) {
         ThreeMotion.t1 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
+                scroller : root,
                 start: "top top",
                 end: "bottom 0",
-                scrub: 1,
+                scrub: 0.5,
                 toggleClass : 'visible',
                 onUpdate : scrollUpdate
             }
@@ -61,13 +62,13 @@ export default function Aniscroll(_target) {
 
         if (window.innerWidth <= 768) {
             ThreeMotion.t1.to(box.scale, {duration: 0, x: 0.6, y: 0.6, z: 0.6}, 'reset')
-            ThreeMotion.t1.to(ModelInfo.p, {duration: 0.5, x : -0.1}, 'st0')
+            ThreeMotion.t1.to(ModelInfo.p, {duration: 0.5, x:-0.1}, 'st0')
         }else {
             ThreeMotion.t1.to(box.scale, {duration: 0, x: 1, y: 1, z: 1}, 'reset')
-            ThreeMotion.t1.to(ModelInfo.p, {duration: 0.5, x : -0.3}, 'st0')
+            ThreeMotion.t1.to(ModelInfo.p, {duration: 0.5, x:-0.3}, 'st0')
         }
         
-        ThreeMotion.t1.to(ModelInfo.r, {duration: 0.5, x:0, y : 0.8}, 'st0')
+        ThreeMotion.t1.to(ModelInfo.r, {duration: 0.5, y:0.8}, 'st0')
         .to(street.position, {duration: 0.5, x : -0.1}, 'st0')
         
         .to(ModelInfo.p, {duration: 0.5, x : 0}, 'st1')
@@ -87,9 +88,10 @@ export default function Aniscroll(_target) {
         ThreeMotion.t2 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
+                scroller : root,
                 start: "top top",
                 end: "bottom 0",
-                scrub: 1,
+                scrub: 0.5,
                 toggleClass : 'visible',
                 onUpdate : scrollUpdate
             }
@@ -140,11 +142,11 @@ export default function Aniscroll(_target) {
         ThreeMotion.t2.to(gym.scale, {duration: 0.5, x:1,y:1,z:1 }, 'st2')
         .to(gym.rotation, {duration: 0.5, x:1.2 }, 'st2')
         if (window.innerWidth <= 768) {
-            ThreeMotion.t2.to(gym.position, {duration: 0.5, x:0,z:-4 }, 'st2')
+            ThreeMotion.t2.to(gym.position, {duration: 0.5, x:0,z:-3 }, 'st2')
             .to(box.scale, {duration: 0.5, x: 0.35, y: 0.35, z: 0.35}, 'st2')
             .to(ModelInfo.p, {duration: 0.5, x: 0, y: 0.12, z: -0.8 }, 'st2')
         }else {
-            ThreeMotion.t2.to(gym.position, {duration: 0.5, x:0 }, 'st2')
+            ThreeMotion.t2.to(gym.position, {duration: 0.5, x:0,z:-2 }, 'st2')
             .to(box.scale, {duration: 0.5, x: 0.6, y: 0.6, z: 0.6}, 'st2')
             .to(ModelInfo.p, {duration: 0.5, x: 0, y: 0.2, z: -0.8 }, 'st2')
         }
@@ -154,8 +156,6 @@ export default function Aniscroll(_target) {
         .to(bg.position, {duration: 0.8, x:0}, 'st2')
         .to(bg.scale, {duration: 0.8, x:5.8,y:5.8,z:5.8}, 'st2')
         .to(bg.material.color, {duration: 0.5, r:0.47, g :0.47,b :0.35}, 'st2')
-
-        .to(dom, {duration: 0.5}, 'end')
     }
     
     // introduce
@@ -166,9 +166,10 @@ export default function Aniscroll(_target) {
         ThreeMotion.t3 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
+                scroller : root,
                 start: "top top",
                 end: "bottom 0",
-                scrub: 1,
+                scrub: 0.5,
                 toggleClass : 'visible',
                 onUpdate : scrollUpdate
             }
@@ -194,7 +195,7 @@ export default function Aniscroll(_target) {
         let shortsContent = _target;
         let item = dom.querySelectorAll('.item');
         let itemArray = [...item];
-        let itemScrollHeight = (!isMobile) ? 1500 : 1500;
+        let itemScrollHeight = 1500;
         let _deg = 360/10;
         let _translateZ = 600;
 
@@ -204,9 +205,10 @@ export default function Aniscroll(_target) {
         ThreeMotion.t4 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
+                scroller : root,
                 start: "top top",
                 end: "bottom 0",
-                scrub: 1,
+                scrub: 0.5,
                 toggleClass : 'visible',
                 onUpdate : scrollUpdate
             }
@@ -248,9 +250,10 @@ export default function Aniscroll(_target) {
         ThreeMotion.t5 = gsap.timeline({
             scrollTrigger: {
                 trigger: dom,
+                scroller : root,
                 start: "top top",
                 end: "bottom 0",
-                scrub: 1,
+                scrub: 0.5,
                 toggleClass : 'visible',
                 onUpdate : scrollUpdate
             }
@@ -266,5 +269,6 @@ export default function Aniscroll(_target) {
         }
         ThreeMotion.t5.to(gym.position, {duration: 0.5, y:-1.5 }, 'st0')
         .to(dom.querySelector('.emailTxt'), {duration: 0.5, opacity:1 ,y:'-50%' }, 'st0')
+        .to(dom, {duration: 0.5}, 'end')
     }
 }
