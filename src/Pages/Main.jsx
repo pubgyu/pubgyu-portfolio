@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import {_lenis} from '@/Script/Scroll.js';
 import Aniscroll from '@/Script/AniScroll.js';
 import ThreeMotion from '@/Script/ThreeInit.js';
-import ShortsVideo from '@/Components/ShortsVideo.js';
+import ShortsVideo from '@/Components/ShortsVideo.jsx';
 import Nav from '@/Components/Nav';
 import Loading from '@/Pages/Loading';
 import { motion } from "framer-motion"
