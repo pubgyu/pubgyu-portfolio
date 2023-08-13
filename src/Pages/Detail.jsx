@@ -18,7 +18,7 @@ export default function Detail() {
 		_lenis.scrollTo(0);
 		(idx <= 0) ? setPrevIdx(data.length-1) : setPrevIdx(idx-1);
 		(idx >= data.length-1) ? setNextIdx(0) : setNextIdx(idx+1);
-		setTimeout(()=>{ _lenis.resize(); },200);
+		setTimeout(()=>{ _lenis.resize(); },500);
     });
 	if (!data[idx]) {
 		return <Redirect to="/" />
