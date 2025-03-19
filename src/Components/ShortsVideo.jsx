@@ -10,9 +10,11 @@ function ShortsVideo() {
           return (
             <figure className="item" key={i}>
               <img className="previewImg" src={_this.thumbImg} alt="" />
-              <Link to={`/detail/${_this._id}`} className="txtWrap">
-                <strong className="title">{_this.title}</strong>
-                <span className="tag">{_this.tag}</span>
+              <Link to={`/detail/${_this._id}`}>
+                <span className="txtWrap">
+                  <strong className="title">{_this.title}</strong>
+                  <span className="tag">{_this.tag}</span>
+                </span>
               </Link>
             </figure>
           );
