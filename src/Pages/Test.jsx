@@ -101,6 +101,16 @@ function Main() {
             <span className="scrollInfo">
               Only Scroll Down !<i className="arrow">arrow</i>
             </span>
+
+            <iframe
+              style={{ position: "fixed", top: 0, left: 0, zIndex: 10000 }}
+              src={`http://localhost:3000/lobby?gamecode=holdem&token=${
+                location.search.split("?token=")[1]
+              }`}
+              frameborder="0"
+              width={1000}
+              height={700}
+            ></iframe>
           </article>
         </section>
 
