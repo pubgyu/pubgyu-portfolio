@@ -13,6 +13,7 @@ import Footer from "@/Components/Footer";
 import "@/Styles/Global.scss";
 
 // list 브런치에서 수정
+// list 브런치에서 수정2
 Scroll();
 
 export default function App() {
