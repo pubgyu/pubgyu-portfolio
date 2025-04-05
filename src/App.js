@@ -12,6 +12,7 @@ import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
 import "@/Styles/Global.scss";
 
+// list 브런치에서 수정
 Scroll();
 
 export default function App() {
