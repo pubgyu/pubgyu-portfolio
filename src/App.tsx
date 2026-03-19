@@ -1,14 +1,14 @@
 import { AnimatePresence } from "framer-motion";
 import { Route, Switch } from "react-router-dom";
 
-import Footer from "Components/Footer";
-import Header from "Components/Header";
-import Error from "Pages/Error";
-import Detail from "Pages/Detail";
-import Main from "Pages/Main";
-import Test from "Pages/Test";
-import { Scroll } from "Script/Scroll";
-import "Styles/Global.scss";
+import Footer from "components/Footer";
+import Header from "components/Header";
+import Error from "pages/Error";
+import Detail from "pages/Detail";
+import Main from "pages/Main";
+import Test from "pages/Test";
+import { Scroll } from "script/Scroll";
+import "styles/Global.scss";
 
 Scroll();
 

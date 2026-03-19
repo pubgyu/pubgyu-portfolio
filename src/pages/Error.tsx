@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 
-import "Styles/Error.scss";
+import "styles/Error.scss";
 
 export default function Error() {
   return (

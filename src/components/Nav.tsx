@@ -1,5 +1,5 @@
-import { _lenis } from "Script/Scroll";
-import "Styles/Nav.scss";
+import { _lenis } from "script/Scroll";
+import "styles/Nav.scss";
 
 type AnchorTarget = "#opening" | "#introduce" | "#shorts" | "#contact";
 

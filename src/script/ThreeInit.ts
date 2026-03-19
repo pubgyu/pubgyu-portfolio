@@ -5,7 +5,7 @@ import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass";
 import { RenderPixelatedPass } from "three/examples/jsm/postprocessing/RenderPixelatedPass";
 
-import { threeLoading } from "Script/Load-progress";
+import { threeLoading } from "script/Load-progress";
 
 type Vector3Like = {
   x: number;

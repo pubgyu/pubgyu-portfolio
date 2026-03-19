@@ -1,6 +1,6 @@
 import gsap from "gsap";
 
-import ThreeMotion from "Script/ThreeInit";
+import ThreeMotion from "script/ThreeInit";
 
 export default function Aniscroll(target: HTMLElement) {
   const dom = target;
