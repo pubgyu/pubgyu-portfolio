@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Link, Redirect, useParams } from "react-router-dom";
 
-import PageUtil from "@/Components/PageUtil";
-import DataBase from "@/DataBase";
-import { _lenis } from "@/Script/Scroll";
-import "@/Styles/Detail.scss";
+import PageUtil from "Components/PageUtil";
+import DataBase from "DataBase";
+import { _lenis } from "Script/Scroll";
+import "Styles/Detail.scss";
 
 interface DetailParams {
   id: string;

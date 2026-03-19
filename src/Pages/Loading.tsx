@@ -1,4 +1,4 @@
-import "@/Styles/Loading.scss";
+import "Styles/Loading.scss";
 
 interface LoadingProps {
   progress: number;

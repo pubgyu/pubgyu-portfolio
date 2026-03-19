@@ -2,15 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
-import Nav from "@/Components/Nav";
-import PageUtil from "@/Components/PageUtil";
-import ShortsVideo from "@/Components/ShortsVideo";
-import Loading from "@/Pages/Loading";
-import Aniscroll from "@/Script/AniScroll";
-import { threeLoading } from "@/Script/Load-progress";
-import { _lenis } from "@/Script/Scroll";
-import ThreeMotion from "@/Script/ThreeInit";
-import "@/Styles/Main.scss";
+import Nav from "Components/Nav";
+import PageUtil from "Components/PageUtil";
+import ShortsVideo from "Components/ShortsVideo";
+import Loading from "Pages/Loading";
+import Aniscroll from "Script/AniScroll";
+import { threeLoading } from "Script/Load-progress";
+import { _lenis } from "Script/Scroll";
+import ThreeMotion from "Script/ThreeInit";
+import "Styles/Main.scss";
 
 let mainInit = false;
 

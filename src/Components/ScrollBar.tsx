@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-import "@/Styles/ScrollBar.scss";
+import "Styles/ScrollBar.scss";
 
 const handleProgressBar = (root: HTMLElement) => {
   const totalScroll = root.scrollTop;

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import DataBase from "@/DataBase";
+import DataBase from "DataBase";
 
 export default function ShortsVideo() {
   return (

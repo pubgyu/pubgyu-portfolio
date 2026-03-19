@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import ScrollBar from "@/Components/ScrollBar";
+import ScrollBar from "Components/ScrollBar";
 
 export default function PageUtil() {
   return (
