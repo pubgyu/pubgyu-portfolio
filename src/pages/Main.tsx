@@ -7,7 +7,7 @@ import PageUtil from "components/PageUtil";
 import ShortsVideo from "components/ShortsVideo";
 import Loading from "pages/Loading";
 import Aniscroll from "script/AniScroll";
-import { threeLoading } from "script/Load-progress";
+import { preloadImageAssets, threeLoading, waitForDocumentFonts } from "script/Load-progress";
 import { _lenis } from "script/Scroll";
 import ThreeMotion from "script/ThreeInit";
 import "styles/Main.scss";
@@ -29,10 +29,58 @@ export default function Main() {
   };
 
   useEffect(() => {
+    let isMounted = true;
+    let finishTimer = 0;
     const scrollTimer = window.setTimeout(() => {
       _lenis?.scrollTo(0);
       _lenis?.resize();
     }, 100);
+    let imageLoadedCount = 0;
+    let imageTotalCount = 0;
+    let threeLoadedCount = 0;
+    let threeTotalCount = 0;
+    let fontLoadedCount = 0;
+    const fontTotalCount = "fonts" in document ? 1 : 0;
+
+    const updateProgress = () => {
+      const totalCount = imageTotalCount + fontTotalCount + Math.max(threeTotalCount, 1);
+      const loadedCount =
+        imageLoadedCount + fontLoadedCount + Math.min(threeLoadedCount, Math.max(threeTotalCount, 1));
+      const nextProgress = Math.min(100, Math.floor((loadedCount / totalCount) * 100));
+
+      setProgress((currentProgress) => Math.max(currentProgress, nextProgress));
+    };
+
+    const waitForThreeAssets = () =>
+      new Promise<void>((resolve) => {
+        threeLoading.onStart = (_url, loaded, total) => {
+          threeLoadedCount = loaded;
+          threeTotalCount = total;
+          updateProgress();
+        };
+
+        threeLoading.onProgress = (_url, loaded, total) => {
+          threeLoadedCount = loaded;
+          threeTotalCount = total;
+          updateProgress();
+        };
+
+        threeLoading.onLoad = () => {
+          threeLoadedCount = Math.max(threeTotalCount, 1);
+          threeTotalCount = Math.max(threeTotalCount, 1);
+          updateProgress();
+          resolve();
+        };
+
+        threeLoading.onError = () => {
+          threeLoadedCount = Math.max(threeTotalCount, 1);
+          threeTotalCount = Math.max(threeTotalCount, 1);
+          updateProgress();
+          resolve();
+        };
+      });
+
+    const threePromise = mainInit ? Promise.resolve() : waitForThreeAssets();
 
     if (!ThreeMotion.setting.scene) {
       ThreeMotion.init();
@@ -52,23 +100,37 @@ export default function Main() {
 
     if (mainInit) {
       setReady(true);
-    }
+    } else {
+      setReady(false);
+      setProgress(0);
+      updateProgress();
 
-    threeLoading.onProgress = (_url, loaded, total) => {
-      const loadProgress = Math.floor((loaded / total) * 100);
-      setProgress(loadProgress);
-    };
+      const imagePromise = preloadImageAssets((loadedCount, totalCount) => {
+        imageLoadedCount = loadedCount;
+        imageTotalCount = totalCount;
+        updateProgress();
+      });
+      const fontPromise = waitForDocumentFonts().then(() => {
+        fontLoadedCount = fontTotalCount;
+        updateProgress();
+      });
 
-    threeLoading.onLoad = () => {
-      _lenis?.scrollTo(0);
-
-      window.setTimeout(() => {
-        if (!mainInit) {
-          setReady(true);
-          mainInit = true;
+      Promise.all([threePromise, imagePromise, fontPromise]).then(() => {
+        if (!isMounted) {
+          return;
         }
-      }, 500);
-    };
+
+        setProgress(100);
+        _lenis?.scrollTo(0);
+
+        finishTimer = window.setTimeout(() => {
+          if (!mainInit) {
+            setReady(true);
+            mainInit = true;
+          }
+        }, 300);
+      });
+    }
 
     if (location.hash === "#work") {
       const height = (workRef.current?.offsetTop ?? 0) + 2000;
@@ -82,7 +144,13 @@ export default function Main() {
     window.addEventListener("resize", resizeHandler);
 
     return () => {
+      isMounted = false;
+      threeLoading.onStart = undefined;
+      threeLoading.onProgress = undefined;
+      threeLoading.onLoad = undefined;
+      threeLoading.onError = undefined;
       window.clearTimeout(scrollTimer);
+      window.clearTimeout(finishTimer);
       window.removeEventListener("resize", resizeHandler);
     };
   }, [location.hash]);
