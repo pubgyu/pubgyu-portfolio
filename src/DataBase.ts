@@ -1,4 +1,15 @@
-const DataBase = [
+export interface PortfolioItem {
+  _id: number;
+  title: string;
+  url: string;
+  mainDesc: string;
+  tag: string;
+  thumbImg: string;
+  images: string[];
+  desc: string[];
+}
+
+const DataBase: PortfolioItem[] = [
   {
     _id: 0,
     title: "카카오 임팩트 리뉴얼 프로젝트",
@@ -10,8 +21,8 @@ const DataBase = [
     images: ["/images/@temp1-1.gif", "/images/@temp1-2.gif"],
     desc: [
       "해당 부분은 너무 기하학적인 도형이라 lottie를 이용해서 영상을 json으로 추출 하여 스크롤과 마우스에 따라 애니메이션 프레임이 가능하도록 제작하였습니다.",
-      "p5.js을 사용하여 WEBGL을 구현하였고 각 섹션마다 이어지도록 모션 시나리오는 gsap의 timeline으로 작업하였습니다.",
-    ],
+      "p5.js을 사용하여 WEBGL을 구현하였고 각 섹션마다 이어지도록 모션 시나리오는 gsap의 timeline으로 작업하였습니다."
+    ]
   },
   {
     _id: 1,
@@ -24,11 +35,11 @@ const DataBase = [
     images: [
       "/images/@temp2-1.gif",
       "/images/@temp2-2.gif",
-      "/images/@temp2-3.gif",
+      "/images/@temp2-3.gif"
     ],
     desc: [
-      "모델링 모션의 동선은 각 article마다 직접 attribute로 핸드폰 모델링의 position,rotation,scale 등 값을 지정할 수 있게 작업하여 dom에서 수정할수 있게 작업하였습니다.\njs나 data가 아닌 dom에서 제어한 이유는 다국어 사이트기 때문에 국가마다 dom의 갯수나 위치가 달라질수도 있기 때문에 attribute 제어 방식으로 작업하였습니다.",
-    ],
+      "모델링 모션의 동선은 각 article마다 직접 attribute로 핸드폰 모델링의 position,rotation,scale 등 값을 지정할 수 있게 작업하여 dom에서 수정할수 있게 작업하였습니다.\njs나 data가 아닌 dom에서 제어한 이유는 다국어 사이트기 때문에 국가마다 dom의 갯수나 위치가 달라질수도 있기 때문에 attribute 제어 방식으로 작업하였습니다."
+    ]
   },
   {
     _id: 2,
@@ -42,13 +53,13 @@ const DataBase = [
       "/images/@temp3-1.jpg",
       "/images/@temp3-2.gif",
       "/images/@temp3-3.gif",
-      "/images/@temp3-4.gif",
+      "/images/@temp3-4.gif"
     ],
     desc: [
       "컨셉은 Evoland라는 점점 그래픽이 좋아지는 게임을 착안하여 스크롤 하면서 점점 해상도가 좋아지는 컨셉으로 제작했습니다.",
       "기존 오브젝트의 후처리로 RenderPixelatedPass을 사용하여 픽셀화 하였습니다.",
-      "각 섹션은 sticky로 이어져 있으며 모션은 각 섹션마다 timeline으로 되어있습니다.",
-    ],
+      "각 섹션은 sticky로 이어져 있으며 모션은 각 섹션마다 timeline으로 되어있습니다."
+    ]
   },
   {
     _id: 3,
@@ -62,10 +73,10 @@ const DataBase = [
       "/images/@temp4-1.jpg",
       "/images/@temp4-2.jpg",
       "/images/@temp4-3.jpg",
-      "/images/@temp4-4.jpg",
+      "/images/@temp4-4.jpg"
     ],
-    desc: [],
-  },
+    desc: []
+  }
 ];
 
 export default DataBase;

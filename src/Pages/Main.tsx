@@ -1,28 +1,25 @@
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
-import { _lenis } from "@/Script/Scroll.js";
-import Aniscroll from "@/Script/AniScroll.js";
-import ThreeMotion from "@/Script/ThreeInit.js";
-import ShortsVideo from "@/Components/ShortsVideo.jsx";
 import Nav from "@/Components/Nav";
-import Loading from "@/Pages/Loading";
-import { motion } from "framer-motion";
 import PageUtil from "@/Components/PageUtil";
-
+import ShortsVideo from "@/Components/ShortsVideo";
+import Loading from "@/Pages/Loading";
+import Aniscroll from "@/Script/AniScroll";
+import { threeLoading } from "@/Script/Load-progress";
+import { _lenis } from "@/Script/Scroll";
+import ThreeMotion from "@/Script/ThreeInit";
 import "@/Styles/Main.scss";
-
-import { threeLoading } from "@/Script/Load-progress.js";
 
 let mainInit = false;
 
-function Main() {
-  // ref
+export default function Main() {
   const [ready, setReady] = useState(false);
   const [progress, setProgress] = useState(0);
-  const threeCanvasRef = useRef();
-  const threeDomRef = useRef();
-  const workRef = useRef();
+  const threeCanvasRef = useRef<HTMLDivElement | null>(null);
+  const threeDomRef = useRef<HTMLElement | null>(null);
+  const workRef = useRef<HTMLElement | null>(null);
   const location = useLocation();
 
   const resizeHandler = () => {
@@ -32,28 +29,40 @@ function Main() {
   };
 
   useEffect(() => {
-    setTimeout(() => {
-      _lenis.scrollTo(0);
-      _lenis.resize();
+    const scrollTimer = window.setTimeout(() => {
+      _lenis?.scrollTo(0);
+      _lenis?.resize();
     }, 100);
 
-    !ThreeMotion.setting.scene ? ThreeMotion.init() : ThreeMotion.remove();
-    ThreeMotion.draw(threeCanvasRef);
-
-    const refSection = threeDomRef.current.children;
-    for (let i = 0; i < refSection.length; i++) {
-      if (refSection[i].tagName === "SECTION") Aniscroll(refSection[i]);
+    if (!ThreeMotion.setting.scene) {
+      ThreeMotion.init();
+    } else {
+      ThreeMotion.remove();
     }
 
-    if (mainInit) setReady(true);
-    threeLoading.onProgress = (url, loaded, total) => {
-      let loadProgress = Math.floor((loaded / total) * 100);
+    ThreeMotion.draw(threeCanvasRef);
+
+    const sections = threeDomRef.current?.children ?? [];
+
+    Array.from(sections).forEach((section) => {
+      if (section.tagName === "SECTION") {
+        Aniscroll(section as HTMLElement);
+      }
+    });
+
+    if (mainInit) {
+      setReady(true);
+    }
+
+    threeLoading.onProgress = (_url, loaded, total) => {
+      const loadProgress = Math.floor((loaded / total) * 100);
       setProgress(loadProgress);
     };
+
     threeLoading.onLoad = () => {
-      // load
-      _lenis.scrollTo(0);
-      setTimeout(() => {
+      _lenis?.scrollTo(0);
+
+      window.setTimeout(() => {
         if (!mainInit) {
           setReady(true);
           mainInit = true;
@@ -61,31 +70,33 @@ function Main() {
       }, 500);
     };
 
-    // scroll
     if (location.hash === "#work") {
-      let h = workRef.current.offsetTop + 2000;
-      setTimeout(() => {
-        _lenis.scrollTo(h);
+      const height = (workRef.current?.offsetTop ?? 0) + 2000;
+
+      window.setTimeout(() => {
+        _lenis?.scrollTo(height);
       }, 500);
     }
 
     resizeHandler();
     window.addEventListener("resize", resizeHandler);
+
     return () => {
+      window.clearTimeout(scrollTimer);
       window.removeEventListener("resize", resizeHandler);
     };
-  }, []);
+  }, [location.hash]);
 
   return (
     <>
-      {!ready ? <Loading progress={progress} /> : ""}
+      {!ready ? <Loading progress={progress} /> : null}
 
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{
           duration: 0.8,
-          delay: 1,
+          delay: 1
         }}
         id="threeDom"
         ref={threeDomRef}
@@ -97,20 +108,10 @@ function Main() {
           <article className="con">
             <h2 className="menuTitle">Hi !</h2>
             <strong className="hideTxt">Hello!</strong>
-            <strong className="openTxt" aria-hidden="true"></strong>
+            <strong className="openTxt" aria-hidden="true" />
             <span className="scrollInfo">
               Only Scroll Down !<i className="arrow">arrow</i>
             </span>
-
-            <iframe
-              style={{ position: "fixed", top: 0, left: 0, zIndex: 10000 }}
-              src={`http://localhost:3000/lobby?gamecode=holdem&token=${
-                location.search.split("?token=")[1]
-              }`}
-              frameborder="0"
-              width={1000}
-              height={700}
-            ></iframe>
           </article>
         </section>
 
@@ -120,7 +121,7 @@ function Main() {
 
             <div className="sectionTitle title1">
               <strong>
-                <i className="pointTxt">I'm creating{"\n"}</i>
+                <i className="pointTxt">I&apos;m creating{"\n"}</i>
                 <i>a fun and{"\n"}</i>
                 <i>exciting site.</i>
               </strong>
@@ -129,7 +130,7 @@ function Main() {
               <strong>
                 <i>Nice to{"\n"}</i>
                 <i>meet you{"\n"}</i>
-                <i className="pointTxt">It's pubgyu{"\n"}</i>
+                <i className="pointTxt">It&apos;s pubgyu{"\n"}</i>
               </strong>
             </div>
           </article>
@@ -158,8 +159,8 @@ function Main() {
                     관심도 많고 공부하고 있습니다.{"\n"}
                   </p>
                   <p className="txt">
-                    아직 우물 안 개구리라고 생각을 하며{"\n"}이 생각을 깨뜨리기
-                    위해 계속 배워나가는 중입니다.{"\n"}
+                    아직 우물 안 개구리라고 생각을 하며{"\n"}이 생각을 깨뜨리기 위해 계속
+                    배워나가는 중입니다.{"\n"}
                   </p>
                 </div>
               </div>
@@ -188,6 +189,7 @@ function Main() {
                 href="mailto:pubgyu@gmail.com"
                 className="pBtn bk"
                 target="_blank"
+                rel="noreferrer"
               >
                 메일 보내기
               </a>
@@ -195,12 +197,10 @@ function Main() {
           </article>
         </section>
 
-        <div className="threeWrap" ref={threeCanvasRef}></div>
+        <div className="threeWrap" ref={threeCanvasRef} />
       </motion.section>
 
       <PageUtil />
     </>
   );
 }
-
-export default Main;

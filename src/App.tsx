@@ -1,25 +1,20 @@
 import { AnimatePresence } from "framer-motion";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Scroll } from "@/Script/Scroll.js";
-import { isIOS } from "react-device-detect";
+import { Route, Switch } from "react-router-dom";
 
-import Main from "@/Pages/Main";
-import Detail from "@/Pages/Detail";
-import Test from "@/Pages/Test";
-import Error from "@/Pages/Error";
-
-import Header from "@/Components/Header";
 import Footer from "@/Components/Footer";
+import Header from "@/Components/Header";
+import Error from "@/Pages/Error";
+import Detail from "@/Pages/Detail";
+import Main from "@/Pages/Main";
+import Test from "@/Pages/Test";
+import { Scroll } from "@/Script/Scroll";
 import "@/Styles/Global.scss";
 
-// list 브런치에서 수정
-// list 브런치에서 수정2
-// list 브런치에서 수정3
 Scroll();
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <>
       <Header />
 
       <AnimatePresence>
@@ -32,6 +27,6 @@ export default function App() {
       </AnimatePresence>
 
       <Footer />
-    </BrowserRouter>
+    </>
   );
 }
