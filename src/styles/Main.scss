@@ -206,7 +206,7 @@
       i {
         display: block;
         &.pointTxt {
-          color: #ed1e6c;
+          color: #6f6f6f;
         }
       }
     }
@@ -267,7 +267,7 @@
     border-radius: 10px;
     overflow: hidden;
     display: flex;
-    background-color: #c6bca5;
+    background-color: #c8c8c8;
     border: 3px solid #000;
     @include noteTablet {
       bottom: 30px;

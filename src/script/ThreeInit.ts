@@ -48,6 +48,12 @@ const ThreeMotion = {
     outputPass: new OutputPass(),
     _GLTFLoader: new GLTFLoader(threeLoading)
   },
+  animation: {
+    autoWalkActive: false,
+    autoWalkRafId: null as number | null,
+    lastTimestamp: 0,
+    speed: 1
+  },
   init() {
     this.setting.scene = new THREE.Scene();
     this.setting.camera.position.z = 1;
@@ -169,6 +175,43 @@ const ThreeMotion = {
   render() {
     this.compose.composer?.render();
   },
+  updateAnimation(delta: number) {
+    if (!this.compose.animationMixer || delta <= 0) {
+      return;
+    }
+
+    this.compose.animationMixer.update(delta);
+  },
+  startAutoWalk() {
+    if (this.animation.autoWalkActive) {
+      return;
+    }
+
+    this.animation.autoWalkActive = true;
+    this.animation.lastTimestamp = performance.now();
+
+    const tick = (timestamp: number) => {
+      if (!this.animation.autoWalkActive) {
+        return;
+      }
+
+      const delta = ((timestamp - this.animation.lastTimestamp) / 1000) * this.animation.speed;
+      this.animation.lastTimestamp = timestamp;
+      this.updateAnimation(delta);
+      this.render();
+      this.animation.autoWalkRafId = window.requestAnimationFrame(tick);
+    };
+
+    this.animation.autoWalkRafId = window.requestAnimationFrame(tick);
+  },
+  stopAutoWalk() {
+    this.animation.autoWalkActive = false;
+
+    if (this.animation.autoWalkRafId !== null) {
+      window.cancelAnimationFrame(this.animation.autoWalkRafId);
+      this.animation.autoWalkRafId = null;
+    }
+  },
   resize() {
     this.setting.camera.aspect = window.innerWidth / window.innerHeight;
     this.setting.camera.updateProjectionMatrix();
@@ -179,6 +222,8 @@ const ThreeMotion = {
     }
   },
   remove() {
+    this.stopAutoWalk();
+
     if (!this.setting.scene) {
       return;
     }

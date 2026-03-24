@@ -189,9 +189,9 @@ export default function Main() {
 
             <div className="sectionTitle title1">
               <strong>
-                <i className="pointTxt">I&apos;m creating{"\n"}</i>
-                <i>a fun and{"\n"}</i>
-                <i>exciting site.</i>
+                <i className="pointTxt">I build structured{"\n"}</i>
+                <i>and engaging{"\n"}</i>
+                <i>web experiences.</i>
               </strong>
             </div>
             <div className="sectionTitle title2">
@@ -217,18 +217,14 @@ export default function Main() {
                 <div className="txtWrap">
                   <p className="txt">......</p>
                   <p className="txt">
-                    논리적 사고로 구조를 세우고{"\n"}
-                    사용자의 시선을 매료할 모션을{"\n"}
-                    브라우저에 표현하는 박규태입니다.{"\n"}
+                    논리적인 구조 위에{"\n"}
+                    사용자 경험을 고려한 인터랙션을 설계하고 구현하는{"\n"}
+                    프론트엔드 개발자 박규태입니다.{"\n"}
                   </p>
                   <p className="txt">
-                    다양한 모션을 하는 것을 좋아하지만{"\n"}
-                    프론트 혹은 다양한 기술에 대해{"\n"}
-                    관심도 많고 공부하고 있습니다.{"\n"}
-                  </p>
-                  <p className="txt">
-                    아직 우물 안 개구리라고 생각을 하며{"\n"}이 생각을 깨뜨리기 위해 계속
-                    배워나가는 중입니다.{"\n"}
+                    React, TypeScript 기반의 실무형 개발을 중심으로{"\n"}
+                    인터랙션과 성능, 구조를 함께 고민하며{"\n"}
+                    더 나은 화면과 경험을 만들고 있습니다.{"\n"}
                   </p>
                 </div>
               </div>

@@ -31,9 +31,7 @@ export default function Aniscroll(target: HTMLElement) {
     box.position.set(ModelInfo.p.x, ModelInfo.p.y, ModelInfo.p.z);
     box.rotation.set(ModelInfo.r.x, ModelInfo.r.y, ModelInfo.r.z);
 
-    if (ThreeMotion.compose.animationMixer) {
-      ThreeMotion.compose.animationMixer.update(aniFrame.f);
-    }
+    ThreeMotion.updateAnimation(aniFrame.f);
 
     ThreeMotion.render();
   };
@@ -194,7 +192,7 @@ export default function Aniscroll(target: HTMLElement) {
       .to(ModelInfo.r, { duration: 0.5, x: 1.5, y: 0, z: 0 }, "st2")
       .to(bg.position, { duration: 0.8, x: 0 }, "st2")
       .to(bg.scale, { duration: 0.8, x: 5.8, y: 5.8, z: 5.8 }, "st2")
-      .to(bg.material.color, { duration: 0.5, r: 0.47, g: 0.47, b: 0.35 }, "st2");
+      .to(bg.material.color, { duration: 0.5, r: 0.44, g: 0.44, b: 0.44 }, "st2");
   }
 
   if (dom.id === "introduce") {
@@ -214,7 +212,16 @@ export default function Aniscroll(target: HTMLElement) {
         end: "bottom 0",
         scrub: 0.5,
         toggleClass: "visible",
-        onUpdate: scrollUpdate
+        onUpdate: scrollUpdate,
+        onEnter: () => {
+          ThreeMotion.startAutoWalk();
+        },
+        onEnterBack: () => {
+          ThreeMotion.startAutoWalk();
+        },
+        onLeaveBack: () => {
+          ThreeMotion.stopAutoWalk();
+        }
       } as any
     });
 

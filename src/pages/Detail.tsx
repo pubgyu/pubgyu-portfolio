@@ -13,11 +13,14 @@ interface DetailParams {
 
 export default function Detail() {
   const { id } = useParams<DetailParams>();
-  const idx = Number(id);
   const data = DataBase;
-  const currentItem = data[idx];
-  const prevIdx = idx <= 0 ? data.length - 1 : idx - 1;
-  const nextIdx = idx >= data.length - 1 ? 0 : idx + 1;
+  const targetId = Number(id);
+  const currentIndex = data.findIndex((item) => item._id === targetId);
+  const currentItem = currentIndex >= 0 ? data[currentIndex] : undefined;
+  const prevIndex = currentIndex <= 0 ? data.length - 1 : currentIndex - 1;
+  const nextIndex = currentIndex >= data.length - 1 ? 0 : currentIndex + 1;
+  const prevItem = data[prevIndex];
+  const nextItem = data[nextIndex];
 
   useEffect(() => {
     _lenis?.scrollTo(0);
@@ -29,7 +32,7 @@ export default function Detail() {
     return () => {
       window.clearTimeout(timer);
     };
-  }, [idx]);
+  }, [targetId]);
 
   if (!currentItem) {
     return <Redirect to="/" />;
@@ -54,7 +57,13 @@ export default function Detail() {
             </span>
             <h4 className="title">{currentItem.title}</h4>
           </span>
-          <span className="tag">{currentItem.tag}</span>
+          <div className="tagWrap">
+            {currentItem.tag.split(",").map((tagItem) => (
+              <span className="tag" key={tagItem.trim()}>
+                {tagItem.trim()}
+              </span>
+            ))}
+          </div>
           {currentItem.url ? (
             <a href={currentItem.url} target="_blank" rel="noreferrer" className="url">
               {currentItem.url}
@@ -78,18 +87,18 @@ export default function Detail() {
         </article>
 
         <span className="btnWrap">
-          <Link to={`/detail/${prevIdx}`} className="thumbBtn">
+          <Link to={`/detail/${prevItem._id}`} className="thumbBtn">
             <span className="imgWrap">
-              <img src={data[prevIdx].thumbImg} alt="이전 작업 썸네일" />
+              <img src={prevItem.thumbImg} alt="이전 작업 썸네일" />
             </span>
             <span className="txt">PREV WORK</span>
           </Link>
           <Link to="/#work" className="pBtn">
             뒤로가기
           </Link>
-          <Link to={`/detail/${nextIdx}`} className="thumbBtn">
+          <Link to={`/detail/${nextItem._id}`} className="thumbBtn">
             <span className="imgWrap">
-              <img src={data[nextIdx].thumbImg} alt="다음 작업 썸네일" />
+              <img src={nextItem.thumbImg} alt="다음 작업 썸네일" />
             </span>
             <span className="txt">NEXT WORK</span>
           </Link>
